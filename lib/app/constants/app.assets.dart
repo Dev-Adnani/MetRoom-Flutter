@@ -1,3 +1,5 @@
 class AppAssets {
-  static String noData = "assets/animation/nodata.json";
+  static String onBoardingOne = "assets/svg/hbook.svg";
+  static String onBoardingTwo = "assets/svg/hbookTwo.svg";
+  static String onBoardingThree = "assets/svg/trip.svg";
 }
