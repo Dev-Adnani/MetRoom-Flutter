@@ -31,14 +31,14 @@ class Core extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
-     return Consumer<ThemeNotifier>(
+    return Consumer<ThemeNotifier>(
       builder: (context, notifier, _) {
         return MaterialApp(
           title: 'Met Room',
           theme: notifier.darkTheme ? darkTheme : lightTheme,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRouter.generateRoute,
-          initialRoute: AppRouter.splashRoute,
+          initialRoute: AppRouter.homeRoute,
         );
       },
     );
