@@ -5,14 +5,16 @@ import 'package:metroom/core/utils/obscure.text.util.dart';
 import 'package:metroom/presentation/widgets/custom.button.dart';
 import 'package:metroom/presentation/widgets/custom.styles.dart';
 import 'package:metroom/presentation/widgets/custom.text.field.dart';
-import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:provider/provider.dart';
+import 'package:metroom/core/notifiers/theme.notifier.dart';
 
-class LoginScreen extends StatelessWidget {
-  final TextEditingController userEmailController = TextEditingController();
+class SignUpScreen extends StatelessWidget {
+  final TextEditingController userNameController = TextEditingController();
   final TextEditingController userPassController = TextEditingController();
+  final TextEditingController userEmailontroller = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
-  LoginScreen({Key? key}) : super(key: key);
+  SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,24 +53,19 @@ class LoginScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Welcome back.",
-                            style: TextStyle(
+                            "Register",
+                            style: kHeadline.copyWith(
                               color: themeFlag
                                   ? AppColors.creamColor
                                   : AppColors.mirage,
-                              fontSize: 34,
-                              fontWeight: FontWeight.bold,
                             ),
-                            textAlign: TextAlign.center,
                           ),
                           const SizedBox(
                             height: 10,
                           ),
                           Text(
-                            "You've been missed!",
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w500,
+                            "Create new account to get started.",
+                            style: kBodyText2.copyWith(
                               color: themeFlag
                                   ? AppColors.creamColor
                                   : AppColors.mirage,
@@ -82,15 +79,20 @@ class LoginScreen extends StatelessWidget {
                             child: Column(
                               children: [
                                 CustomTextField.customTextField(
-                                  hintText: 'Email',
-                                  inputType: TextInputType.text,
-                                  textEditingController: userEmailController,
-                                  validator: (val) =>
-                                      !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                                              .hasMatch(val!)
-                                          ? 'Enter an email'
-                                          : null,
                                   themeFlag: themeFlag,
+                                  hintText: 'Email',
+                                  textEditingController: userEmailontroller,
+                                  validator: (val) =>
+                                      val!.isEmpty ? 'Enter a Email' : null,
+                                  inputType: TextInputType.text,
+                                ),
+                                CustomTextField.customTextField(
+                                  themeFlag: themeFlag,
+                                  hintText: 'Username',
+                                  inputType: TextInputType.text,
+                                  textEditingController: userNameController,
+                                  validator: (val) =>
+                                      val!.isEmpty ? 'Enter a username' : null,
                                 ),
                                 CustomTextField.customPasswordField(
                                   themeFlag: themeFlag,
@@ -106,7 +108,10 @@ class LoginScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                          )
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
                         ],
                       ),
                     ),
@@ -114,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Dont't have an account? ",
+                          "Already have an account? ",
                           style: kBodyText.copyWith(
                             color: themeFlag
                                 ? AppColors.creamColor
@@ -124,10 +129,10 @@ class LoginScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context)
-                                .pushNamed(AppRouter.signupRoute);
+                                .pushNamed(AppRouter.loginRoute);
                           },
                           child: Text(
-                            'Register',
+                            'Sign In',
                             style: kBodyText.copyWith(
                               color: themeFlag
                                   ? AppColors.creamColor
@@ -141,8 +146,10 @@ class LoginScreen extends StatelessWidget {
                       height: 20,
                     ),
                     CustomButton.customBtnLogin(
-                      buttonName: 'Sign In',
-                      onTap: () {},
+                      buttonName: 'Register',
+                      onTap: () {
+                        _themeNotifier.toggleTheme();
+                      },
                       bgColor:
                           themeFlag ? AppColors.creamColor : AppColors.mirage,
                       textColor:

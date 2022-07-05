@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:metroom/app/constants/app.theme.dart';
 import 'package:metroom/app/provider/app.provider.dart';
 import 'package:metroom/app/routes/app.routes.dart';
+import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -30,18 +31,16 @@ class Core extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
-    return MaterialApp(
-      title: 'Met Room',
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: GoogleFonts.exo2TextTheme(
-          Theme.of(context).textTheme,
-        ),
-        scaffoldBackgroundColor: const Color(0xffffffff),
-      ),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: AppRouter.generateRoute,
-      initialRoute: AppRouter.splashRoute,
+     return Consumer<ThemeNotifier>(
+      builder: (context, notifier, _) {
+        return MaterialApp(
+          title: 'Met Room',
+          theme: notifier.darkTheme ? darkTheme : lightTheme,
+          debugShowCheckedModeBanner: false,
+          onGenerateRoute: AppRouter.generateRoute,
+          initialRoute: AppRouter.splashRoute,
+        );
+      },
     );
   }
 }

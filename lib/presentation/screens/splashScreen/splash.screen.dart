@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.keys.dart';
+import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/core/service/cache.service.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/app/routes/app.routes.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,7 +19,9 @@ class _SplashScreenState extends State<SplashScreen> {
     return CacheService.conditionalCache(
       key: AppKeys.onBoardDone,
       actionIfNull: () {
-        Navigator.of(context).pushNamed(AppRouter.onboardingRoute).whenComplete(
+        Navigator.of(context)
+            .pushReplacementNamed(AppRouter.onboardingRoute)
+            .whenComplete(
               () => {
                 CacheService.setString(key: AppKeys.onBoardDone, value: 'done')
               },
@@ -27,7 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
         CacheService.conditionalCache(
             key: AppKeys.userData,
             actionIfNull: () {
-              Navigator.of(context).pushNamed(AppRouter.loginRoute);
+              Navigator.of(context)
+                  .pushReplacementNamed(AppRouter.deciderRoute);
             },
             actionIfNotNull: () {
               Navigator.of(context).pushReplacementNamed(AppRouter.loginRoute);
@@ -44,8 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeNotifier _themeNotifier = Provider.of<ThemeNotifier>(context);
+    var themeFlag = _themeNotifier.darkTheme;
     return Scaffold(
-      backgroundColor: AppColors.creamColor,
+      backgroundColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               'MetRoom',
               style: TextStyle(
-                color: AppColors.mirage,
+                color: themeFlag ? AppColors.creamColor : AppColors.mirage,
                 fontSize: 50.0,
               ),
             ),
