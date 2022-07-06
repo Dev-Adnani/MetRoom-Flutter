@@ -25,4 +25,6 @@ class AuthNotifer extends ChangeNotifier {
       print(e);
     }
   }
+
+ 
 }

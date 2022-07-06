@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:metroom/presentation/screens/homeScreen/widgets/home.bottomNav.dart';
-import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
-import 'package:metroom/presentation/screens/signupScreen/signup.screen.dart';
+import 'package:metroom/core/notifiers/auth.notifier.dart';
+import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int pageIndex = 0;
-  final PageController homePageController = PageController();
-  @override
   Widget build(BuildContext context) {
+    var dt = Provider.of<AuthNotifer>(context, listen: false);
     return Scaffold(
-      body: PageView(
-        controller: homePageController,
-        physics: const NeverScrollableScrollPhysics(),
-        onPageChanged: (page) {
-          setState(() {
-            pageIndex = page;
-          });
-        },
-        children: [
-          LoginScreen(),
-          LoginScreen(),
-          LoginScreen(),
-          SignUpScreen(),
-          SignUpScreen()
-        ],
-      ),
-      bottomNavigationBar: homeBottomNav(
-        controller: homePageController,
-        index: pageIndex,
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Daba'),
+          onPressed: () {
+          
+          },
+        ),
       ),
     );
   }

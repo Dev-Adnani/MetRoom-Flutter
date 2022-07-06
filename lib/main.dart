@@ -34,12 +34,11 @@ class Core extends StatelessWidget {
     return Consumer<ThemeNotifier>(
       builder: (context, notifier, _) {
         return MaterialApp(
-          title: 'Met Room',
-          theme: notifier.darkTheme ? darkTheme : lightTheme,
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: AppRouter.generateRoute,
-          initialRoute: AppRouter.homeRoute,
-        );
+            title: 'Met Room',
+            theme: notifier.darkTheme ? darkTheme : lightTheme,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: AppRouter.generateRoute,
+            initialRoute: AppRouter.navRoute);
       },
     );
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/presentation/screens/deciderScreen/decider.screen.dart';
-import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
+import 'package:metroom/presentation/screens/navigationScreen/navigation.screen.dart';
 import 'package:metroom/presentation/screens/onBoardingScreen/on.boarding.screen.dart';
 import 'package:metroom/presentation/screens/signupScreen/signup.screen.dart';
 import 'package:metroom/presentation/screens/splashScreen/splash.screen.dart';
@@ -12,7 +12,7 @@ class AppRouter {
   static const String deciderRoute = "/decider";
   static const String loginRoute = "/login";
   static const String signupRoute = "/signup";
-  static const String homeRoute = "/home";
+  static const String navRoute = "/nav";
 
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -46,10 +46,10 @@ class AppRouter {
             builder: (_) => SignUpScreen(),
           );
         }
-      case homeRoute:
+      case navRoute:
         {
           return MaterialPageRoute(
-            builder: (_) => HomeScreen(),
+            builder: (_) => NavigationScreen(),
           );
         }
     }

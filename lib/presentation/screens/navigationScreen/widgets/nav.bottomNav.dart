@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
-Widget homeBottomNav({required int index, required PageController controller}) {
+Widget BottomNav({required int index, required PageController controller}) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: const BorderRadius.only(
