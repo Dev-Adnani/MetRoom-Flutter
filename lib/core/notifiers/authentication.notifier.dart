@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/core/service/auth.service.dart';
 
-class AuthNotifer extends ChangeNotifier {
+class AuthenticationNotifer extends ChangeNotifier {
   final AuthenticationService _authenticationService = AuthenticationService();
 
   Future<void> signUp({

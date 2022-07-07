@@ -3,8 +3,11 @@ import 'package:metroom/app/constants/app.keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemeNotifier with ChangeNotifier {
-  bool _darktheme = false;
+  bool _darktheme = true;
   bool get darkTheme => _darktheme;
+  set darkTheme(bool value) {
+    _darktheme = value;
+  }
 
   ThemeNotifier() {
     _loadFromPrefs();
