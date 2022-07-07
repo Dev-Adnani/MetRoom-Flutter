@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/app/routes/app.routes.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/icon.style.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.item.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.user.card.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.appbar.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -45,7 +47,7 @@ class SettingScreen extends StatelessWidget {
                 backgroundColor: AppColors.yellowish,
               ),
               title: 'Dark mode',
-              subtitle: "Automatic",
+              subtitle: "Change App Theme",
               trailing: Switch.adaptive(
                 value: _themeNotifier.darkTheme,
                 onChanged: (value) {
@@ -64,7 +66,21 @@ class SettingScreen extends StatelessWidget {
               subtitle: "Modify Your Data",
             ),
             SettingsItem(
+              themeFlag: themeFlag,
               onTap: () {},
+              icons: CupertinoIcons.bookmark_fill,
+              iconStyle: IconStyle(
+                backgroundColor: Colors.brown,
+              ),
+              title: 'Bookings',
+              subtitle: "Check Old Bookings!",
+            ),
+            SettingsItem(
+              onTap: () async {
+                final Uri _url =
+                    Uri.parse('https://www.devadnani.com/pPolicy.html');
+                launchUrl(_url);
+              },
               themeFlag: themeFlag,
               icons: Icons.fingerprint,
               iconStyle: IconStyle(
@@ -77,7 +93,9 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsItem(
               themeFlag: themeFlag,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRouter.aboutRoute);
+              },
               icons: Icons.info_rounded,
               iconStyle: IconStyle(
                 backgroundColor: Colors.purple,

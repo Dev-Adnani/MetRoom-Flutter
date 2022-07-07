@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:metroom/core/service/auth.service.dart';
+import 'package:metroom/app/constants/app.keys.dart';
+import 'package:metroom/core/service/authentication.service.dart';
+import 'package:metroom/core/service/cache.service.dart';
 
 class AuthenticationNotifer extends ChangeNotifier {
   final AuthenticationService _authenticationService = AuthenticationService();
@@ -26,5 +28,10 @@ class AuthenticationNotifer extends ChangeNotifier {
     }
   }
 
- 
+  Future logout({
+    required String email,
+    required String password,
+  }) async {
+    await CacheService.deleteKey(key: AppKeys.userData);
+  }
 }
