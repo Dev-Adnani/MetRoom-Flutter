@@ -18,6 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future _initiateCache() async {
     return CacheService.conditionalCache(
       key: AppKeys.onBoardDone,
+      valueType: ValueType.StringValue,
       actionIfNull: () {
         Navigator.of(context)
             .pushReplacementNamed(AppRouter.onboardingRoute)
@@ -29,14 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
       },
       actionIfNotNull: () {
         CacheService.conditionalCache(
-            key: AppKeys.userData,
-            actionIfNull: () {
-              Navigator.of(context)
-                  .pushReplacementNamed(AppRouter.deciderRoute);
-            },
-            actionIfNotNull: () {
-              Navigator.of(context).pushReplacementNamed(AppRouter.loginRoute);
-            });
+          valueType: ValueType.IntValue,
+          key: AppKeys.userData,
+          actionIfNull: () {
+            Navigator.of(context).pushReplacementNamed(AppRouter.deciderRoute);
+          },
+          actionIfNotNull: () {
+            Navigator.of(context).pushReplacementNamed(AppRouter.navRoute);
+          },
+        );
       },
     );
   }

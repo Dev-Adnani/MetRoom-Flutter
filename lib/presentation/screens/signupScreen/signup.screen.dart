@@ -196,12 +196,16 @@ class SignUpScreen extends StatelessWidget {
           await Provider.of<AuthenticationNotifer>(context, listen: false)
               .signUp(userModel: userModel);
       if (isValid) {
-        SnackUtil.showSnackBar(
-          context: context,
-          text: "Signup Successfully",
-          textColor: AppColors.creamColor,
-          backgroundColor: Colors.green,
-        );
+        Navigator.of(context)
+            .pushReplacementNamed(AppRouter.navRoute)
+            .whenComplete(() {
+          SnackUtil.showSnackBar(
+            context: context,
+            text: "Signup Successfully",
+            textColor: AppColors.creamColor,
+            backgroundColor: Colors.green,
+          );
+        });
       } else {
         var errorType =
             Provider.of<AuthenticationNotifer>(context, listen: false).error;

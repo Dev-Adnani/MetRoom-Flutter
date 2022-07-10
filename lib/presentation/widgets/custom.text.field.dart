@@ -77,6 +77,7 @@ class CustomTextField {
           color: themeFlag ? AppColors.creamColor : AppColors.mirage,
         ),
         obscureText: isPasswordVisible,
+        
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(

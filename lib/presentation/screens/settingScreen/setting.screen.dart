@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/app/routes/app.routes.dart';
+import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/icon.style.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.item.dart';
@@ -115,7 +116,14 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsItem(
               themeFlag: themeFlag,
-              onTap: () {},
+              onTap: () {
+                Provider.of<AuthenticationNotifer>(context, listen: false)
+                    .logout()
+                    .whenComplete(() {
+                  Navigator.of(context)
+                      .pushReplacementNamed(AppRouter.deciderRoute);
+                });
+              },
               icons: Icons.logout,
               iconStyle: IconStyle(
                 backgroundColor: Colors.red,

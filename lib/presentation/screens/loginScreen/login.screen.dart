@@ -171,12 +171,16 @@ class LoginScreen extends StatelessWidget {
         password: userPassController.text,
       );
       if (isValid) {
-        SnackUtil.showSnackBar(
-          context: context,
-          text: "Signup Successfully",
-          textColor: AppColors.creamColor,
-          backgroundColor: Colors.green,
-        );
+        Navigator.of(context)
+            .pushReplacementNamed(AppRouter.navRoute)
+            .whenComplete(() {
+          SnackUtil.showSnackBar(
+            context: context,
+            text: "Login Successfull",
+            textColor: AppColors.creamColor,
+            backgroundColor: Colors.green,
+          );
+        });
       } else {
         var errorType =
             Provider.of<AuthenticationNotifer>(context, listen: false).error;

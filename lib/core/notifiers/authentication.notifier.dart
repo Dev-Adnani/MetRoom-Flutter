@@ -8,9 +8,9 @@ import 'package:supabase/supabase.dart';
 
 class AuthenticationNotifer extends ChangeNotifier {
   final AuthenticationService _authenticationService = AuthenticationService();
-  Session? user;
   String? error;
 
+  //TODO : Store Important User Data ->
   Future<bool> signUp({
     required UserModel userModel,
   }) async {
@@ -20,7 +20,6 @@ class AuthenticationNotifer extends ChangeNotifier {
         password: userModel.userPassword,
       );
       if (response.error == null) {
-        user = response.data;
         notifyListeners();
         var dataAdded = await addUserToDatabase(userModel: userModel);
         if (dataAdded!.hasError) {
@@ -28,6 +27,11 @@ class AuthenticationNotifer extends ChangeNotifier {
           notifyListeners();
           return false;
         } else {
+          var userId = dataAdded.data[0]['user_id'];
+          CacheService.setInt(
+            key: AppKeys.userData,
+            value: userId,
+          );
           return true;
         }
       } else {
@@ -49,9 +53,20 @@ class AuthenticationNotifer extends ChangeNotifier {
       GotrueSessionResponse response =
           await _authenticationService.login(email: email, password: password);
       if (response.error == null) {
-        user = response.data;
         notifyListeners();
-        return true;
+        var userData = await getUserData(useremail: email);
+        if (userData!.hasError) {
+          error = userData.error!.message.toString();
+          return false;
+        } else {
+          print(userData.data);
+          var userId = userData.data[0]['user_id'];
+          CacheService.setInt(
+            key: AppKeys.userData,
+            value: userId,
+          );
+          return true;
+        }
       } else {
         error = response.error!.message.toString();
         notifyListeners();
@@ -62,10 +77,7 @@ class AuthenticationNotifer extends ChangeNotifier {
     }
   }
 
-  Future logout({
-    required String email,
-    required String password,
-  }) async {
+  Future logout() async {
     await CacheService.deleteKey(key: AppKeys.userData);
   }
 
@@ -74,12 +86,26 @@ class AuthenticationNotifer extends ChangeNotifier {
     try {
       PostgrestResponse? response =
           await SupabaseAPI.supabaseClient.from("users").insert({
-        "created_at": userModel.createdAt,
-        "user_name": userModel.userName,
-        "user_email": userModel.userEmail,
-        "user_password": userModel.userPassword,
+        "created_at": userModel.createdAt.toString(),
+        "user_name": userModel.userName.toString(),
+        "user_email": userModel.userEmail.toString(),
+        "user_password": userModel.userPassword.toString(),
         "user_phone_no": userModel.userPhoneNo,
       }).execute();
+      return response;
+    } catch (e) {
+      print(e.toString());
+    }
+    return null;
+  }
+
+  Future<PostgrestResponse?> getUserData({required String useremail}) async {
+    try {
+      PostgrestResponse? response = await SupabaseAPI.supabaseClient
+          .from("users")
+          .select()
+          .eq("user_email", useremail)
+          .execute();
       return response;
     } catch (e) {
       print(e.toString());
