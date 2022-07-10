@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/app/routes/app.routes.dart';
+import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/utils/obscure.text.util.dart';
 import 'package:metroom/presentation/widgets/custom.button.dart';
+import 'package:metroom/presentation/widgets/custom.snackbar.dart';
 import 'package:metroom/presentation/widgets/custom.styles.dart';
 import 'package:metroom/presentation/widgets/custom.text.field.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
@@ -142,7 +144,9 @@ class LoginScreen extends StatelessWidget {
                     ),
                     CustomButton.customBtnLogin(
                       buttonName: 'Sign In',
-                      onTap: () {},
+                      onTap: () {
+                        login(context: context);
+                      },
                       bgColor:
                           themeFlag ? AppColors.creamColor : AppColors.mirage,
                       textColor:
@@ -156,5 +160,33 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  login({required BuildContext context}) async {
+    if (_formKey.currentState!.validate()) {
+      bool isValid =
+          await Provider.of<AuthenticationNotifer>(context, listen: false)
+              .login(
+        email: userEmailController.text,
+        password: userPassController.text,
+      );
+      if (isValid) {
+        SnackUtil.showSnackBar(
+          context: context,
+          text: "Signup Successfully",
+          textColor: AppColors.creamColor,
+          backgroundColor: Colors.green,
+        );
+      } else {
+        var errorType =
+            Provider.of<AuthenticationNotifer>(context, listen: false).error;
+        SnackUtil.showSnackBar(
+          context: context,
+          text: errorType!,
+          textColor: AppColors.creamColor,
+          backgroundColor: Colors.red.shade200,
+        );
+      }
+    }
   }
 }

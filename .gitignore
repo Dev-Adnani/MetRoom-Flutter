@@ -47,4 +47,4 @@ app.*.map.json
 /android/app/release
 
 #Hiding Some Keys
-lib/app/constants/app.supabase.credentials.dart
+lib/app/constants/app.credentials.dart
