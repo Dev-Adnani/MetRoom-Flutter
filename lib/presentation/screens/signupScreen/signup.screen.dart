@@ -103,6 +103,7 @@ class SignUpScreen extends StatelessWidget {
                                   themeFlag: themeFlag,
                                   hintText: 'Enter Mobile No',
                                   inputType: TextInputType.number,
+                                  maxLength: 10,
                                   textEditingController: userPhoneNController,
                                   validator: (val) =>
                                       val!.isEmpty || val.length < 10
@@ -196,16 +197,14 @@ class SignUpScreen extends StatelessWidget {
           await Provider.of<AuthenticationNotifer>(context, listen: false)
               .signUp(userModel: userModel);
       if (isValid) {
-        Navigator.of(context)
-            .pushReplacementNamed(AppRouter.navRoute)
-            .whenComplete(() {
-          SnackUtil.showSnackBar(
-            context: context,
-            text: "Signup Successfully",
-            textColor: AppColors.creamColor,
-            backgroundColor: Colors.green,
-          );
-        });
+        Navigator.of(context).pushReplacementNamed(AppRouter.navRoute);
+
+        SnackUtil.showSnackBar(
+          context: context,
+          text: "Signup Successfull",
+          textColor: AppColors.creamColor,
+          backgroundColor: Colors.green,
+        );
       } else {
         var errorType =
             Provider.of<AuthenticationNotifer>(context, listen: false).error;

@@ -9,8 +9,13 @@ import 'package:supabase/supabase.dart';
 class AuthenticationNotifer extends ChangeNotifier {
   final AuthenticationService _authenticationService = AuthenticationService();
   String? error;
+  int? userId;
 
-  //TODO : Store Important User Data ->
+  String? userName;
+  String? userPhoto;
+  String? userEmail;
+  String? userPhoneNo;
+
   Future<bool> signUp({
     required UserModel userModel,
   }) async {
@@ -27,10 +32,10 @@ class AuthenticationNotifer extends ChangeNotifier {
           notifyListeners();
           return false;
         } else {
-          var userId = dataAdded.data[0]['user_id'];
+          userId = dataAdded.data[0]['user_id'];
           CacheService.setInt(
             key: AppKeys.userData,
-            value: userId,
+            value: userId!,
           );
           return true;
         }
@@ -54,16 +59,15 @@ class AuthenticationNotifer extends ChangeNotifier {
           await _authenticationService.login(email: email, password: password);
       if (response.error == null) {
         notifyListeners();
-        var userData = await getUserData(useremail: email);
+        var userData = await getUserDataByEmail(useremail: email);
         if (userData!.hasError) {
           error = userData.error!.message.toString();
           return false;
         } else {
-          print(userData.data);
-          var userId = userData.data[0]['user_id'];
+          userId = userData.data[0]['user_id'];
           CacheService.setInt(
             key: AppKeys.userData,
-            value: userId,
+            value: userId!,
           );
           return true;
         }
@@ -99,7 +103,8 @@ class AuthenticationNotifer extends ChangeNotifier {
     return null;
   }
 
-  Future<PostgrestResponse?> getUserData({required String useremail}) async {
+  Future<PostgrestResponse?> getUserDataByEmail(
+      {required String useremail}) async {
     try {
       PostgrestResponse? response = await SupabaseAPI.supabaseClient
           .from("users")

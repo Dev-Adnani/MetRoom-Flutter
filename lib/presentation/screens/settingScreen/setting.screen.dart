@@ -18,6 +18,7 @@ class SettingScreen extends StatelessWidget {
     ThemeNotifier _themeNotifier =
         Provider.of<ThemeNotifier>(context, listen: true);
     var themeFlag = _themeNotifier.darkTheme;
+    var userData = Provider.of<AuthenticationNotifer>(context, listen: true);
     return Scaffold(
       appBar: settingAppBar(themeFlag: themeFlag),
       backgroundColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
@@ -29,8 +30,8 @@ class SettingScreen extends StatelessWidget {
             ),
             UserCard(
               cardColor: AppColors.rawSienna,
-              userName: 'Dev Adnani',
-              userProfileUrl:
+              userName: userData.userName ?? 'Dev Adnani',
+              userProfileUrl: userData.userPhoto ??
                   'https://avatars.githubusercontent.com/u/61565182?v=4',
               onTap: () {},
             ),
