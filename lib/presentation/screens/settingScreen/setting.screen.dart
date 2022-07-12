@@ -107,7 +107,9 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsItem(
               themeFlag: themeFlag,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRouter.feedbackRoute);
+              },
               icons: CupertinoIcons.chat_bubble,
               iconStyle: IconStyle(
                 backgroundColor: Colors.deepOrangeAccent,

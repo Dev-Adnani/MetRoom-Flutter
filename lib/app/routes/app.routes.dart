@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/presentation/screens/aboutScreen/about.screen.dart';
 import 'package:metroom/presentation/screens/deciderScreen/decider.screen.dart';
+import 'package:metroom/presentation/screens/feedbackScreen/feedback.screen.dart';
 import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/navigation.screen.dart';
@@ -19,6 +20,7 @@ class AppRouter {
   static const String homeRoute = "/home";
   static const String settingRoute = "/setting";
   static const String aboutRoute = "/about";
+  static const String feedbackRoute = "/feedback";
 
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -74,6 +76,12 @@ class AppRouter {
         {
           return MaterialPageRoute(
             builder: (_) => AboutScreen(),
+          );
+        }
+      case feedbackRoute:
+        {
+          return MaterialPageRoute(
+            builder: (_) => FeedbackScreen(),
           );
         }
     }

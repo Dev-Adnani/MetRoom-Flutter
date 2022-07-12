@@ -16,6 +16,8 @@ class AuthenticationNotifer extends ChangeNotifier {
   String? userEmail;
   String? userPhoneNo;
 
+  //Todo : We Need To Get User Data After He Opens The App
+
   Future<bool> signUp({
     required UserModel userModel,
   }) async {
@@ -110,6 +112,20 @@ class AuthenticationNotifer extends ChangeNotifier {
           .from("users")
           .select()
           .eq("user_email", useremail)
+          .execute();
+      return response;
+    } catch (e) {
+      print(e.toString());
+    }
+    return null;
+  }
+
+  Future<PostgrestResponse?> getUserDataByID({required int user_id}) async {
+    try {
+      PostgrestResponse? response = await SupabaseAPI.supabaseClient
+          .from("users")
+          .select()
+          .eq("user_id", user_id)
           .execute();
       return response;
     } catch (e) {
