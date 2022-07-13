@@ -69,7 +69,9 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsItem(
               themeFlag: themeFlag,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRouter.bookingRoute);
+              },
               icons: CupertinoIcons.bookmark_fill,
               iconStyle: IconStyle(
                 backgroundColor: Colors.brown,

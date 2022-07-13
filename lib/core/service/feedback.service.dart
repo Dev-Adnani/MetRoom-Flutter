@@ -1,6 +1,5 @@
 import 'package:metroom/core/api/supabase.api.dart';
 import 'package:metroom/core/models/feedback.model.dart';
-import 'package:metroom/core/models/user.model.dart';
 import 'package:supabase/supabase.dart';
 
 class FeedbackService {
@@ -15,17 +14,6 @@ class FeedbackService {
         "feedback_description": feedbackModel.feedbackDescription,
         "feedback_stars": feedbackModel.feedbackStars,
       }).execute();
-      return response;
-    } catch (e) {
-      print(e.toString());
-    }
-    return null;
-  }
-
-  Future<PostgrestResponse?> getFeedbackData() async {
-    try {
-      PostgrestResponse? response =
-          await SupabaseAPI.supabaseClient.from("feedback").select().execute();
       return response;
     } catch (e) {
       print(e.toString());

@@ -25,10 +25,4 @@ class FeedbackNotifier extends ChangeNotifier {
       return true;
     }
   }
-
-  // For Development Purpose
-  Future getFeedbackData() async {
-    var data = await feedbackService.getFeedbackData();
-    print(data!.data);
-  }
 }

@@ -5,4 +5,5 @@ class AppColors {
   static Color rawSienna = const Color(0xffd7834f);
   static Color creamColor = const Color(0xfff5f5ff);
   static Color yellowish = const Color(0xffE7B975);
+  static const shadowColor = Colors.black87;
 }
