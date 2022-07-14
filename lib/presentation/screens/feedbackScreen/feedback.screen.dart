@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/core/models/feedback.model.dart';
+import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/feedback.notifier.dart';
 import 'package:metroom/presentation/screens/feedbackScreen/widgets/feedback.appbar.dart';
 import 'package:metroom/presentation/widgets/custom.button.dart';
@@ -145,13 +146,14 @@ class FeedbackScreen extends StatelessWidget {
     String createdAt = DateFormat("EEEEE, dd, yyyy").format(
       DateTime.now(),
     );
-    //Todo : Fetch Logged User ID HERE
+    AuthenticationNotifer authenticationNotifer =
+        Provider.of<AuthenticationNotifer>(context, listen: false);
     FeedbackModel feedbackModel = FeedbackModel(
       createdAt: createdAt.toString(),
       feedbackTitle: ftitleController.text,
       feedbackDescription: fdescController.text,
       feedbackStars: Userating,
-      userId: 27,
+      userId: authenticationNotifer.userId!,
     );
     FeedbackNotifier feedBackNotifier =
         Provider.of<FeedbackNotifier>(context, listen: false);

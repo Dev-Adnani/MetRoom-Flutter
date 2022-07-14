@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.keys.dart';
+import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/core/service/cache.service.dart';
 import 'package:metroom/app/constants/app.colors.dart';
@@ -35,7 +36,10 @@ class _SplashScreenState extends State<SplashScreen> {
           actionIfNull: () {
             Navigator.of(context).pushReplacementNamed(AppRouter.deciderRoute);
           },
-          actionIfNotNull: () {
+          actionIfNotNull: () async {
+            var user_id = await CacheService.getInt(key: AppKeys.userData);
+            Provider.of<AuthenticationNotifer>(context, listen: false)
+                .getUserDataByID(user_id: user_id);
             Navigator.of(context).pushReplacementNamed(AppRouter.navRoute);
           },
         );

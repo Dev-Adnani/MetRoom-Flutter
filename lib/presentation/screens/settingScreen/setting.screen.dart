@@ -30,9 +30,8 @@ class SettingScreen extends StatelessWidget {
             ),
             UserCard(
               cardColor: AppColors.rawSienna,
-              userName: userData.userName ?? 'Dev Adnani',
-              userProfileUrl: userData.userPhoto ??
-                  'https://avatars.githubusercontent.com/u/61565182?v=4',
+              userName: userData.userName!,
+              userProfileUrl: userData.userPhoto!,
               onTap: () {},
             ),
             SizedBox(

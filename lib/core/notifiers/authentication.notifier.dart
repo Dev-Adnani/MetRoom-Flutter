@@ -10,7 +10,6 @@ class AuthenticationNotifer extends ChangeNotifier {
   final AuthenticationService _authenticationService = AuthenticationService();
   String? error;
   int? userId;
-
   String? userName;
   String? userPhoto;
   String? userEmail;
@@ -120,14 +119,25 @@ class AuthenticationNotifer extends ChangeNotifier {
     return null;
   }
 
-  Future<PostgrestResponse?> getUserDataByID({required int user_id}) async {
+  Future getUserDataByID({required int user_id}) async {
     try {
-      PostgrestResponse? response = await SupabaseAPI.supabaseClient
+      PostgrestResponse response = await SupabaseAPI.supabaseClient
           .from("users")
           .select()
           .eq("user_id", user_id)
           .execute();
-      return response;
+
+      if (response.hasError) {
+        await CacheService.deleteKey(key: AppKeys.userData);
+      } else {
+        var data = response.data;
+        userId = data[0]['user_id'];
+        userEmail = data[0]['user_email'];
+        userPhoto = data[0]['user_profile_url'];
+        userName = data[0]['user_name'];
+        userPhoneNo = data[0]['user_phone_no'];
+        notifyListeners();
+      }
     } catch (e) {
       print(e.toString());
     }
