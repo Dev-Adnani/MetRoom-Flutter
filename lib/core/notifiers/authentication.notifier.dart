@@ -15,8 +15,6 @@ class AuthenticationNotifer extends ChangeNotifier {
   String? userEmail;
   String? userPhoneNo;
 
-  //Todo : We Need To Get User Data After He Opens The App
-
   Future<bool> signUp({
     required UserModel userModel,
   }) async {
@@ -66,6 +64,8 @@ class AuthenticationNotifer extends ChangeNotifier {
           return false;
         } else {
           userId = userData.data[0]['user_id'];
+          getUserDataByID(user_id: userId!);
+
           CacheService.setInt(
             key: AppKeys.userData,
             value: userId!,

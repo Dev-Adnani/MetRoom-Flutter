@@ -9,10 +9,6 @@ Widget BottomNav(
   return Container(
     decoration: BoxDecoration(
       color: themeFlag ? AppColors.mirage : AppColors.creamColor,
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(15),
-        topRight: Radius.circular(15),
-      ),
     ),
     child: ClipRRect(
       borderRadius: const BorderRadius.only(

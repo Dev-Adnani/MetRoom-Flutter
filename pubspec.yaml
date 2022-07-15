@@ -8,7 +8,6 @@ environment:
   sdk: ">=2.17.3 <3.0.0"
 
 dependencies:
-  carousel_slider: ^4.1.1
   cloudinary_sdk: ^4.0.2+10
   concentric_transition: ^1.0.3
   cupertino_icons: ^1.0.2

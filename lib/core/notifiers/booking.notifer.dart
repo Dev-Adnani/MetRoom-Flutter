@@ -8,7 +8,7 @@ class BookingNotifier extends ChangeNotifier {
   Future getSpecificRoom({required int userId}) async {
     var data = await bookingService.getBookingData(userId: userId);
     return data.data
-        .map((todoElement) => BookingModel.fromJson(todoElement))
+        .map((element) => BookingModel.fromJson(element))
         .toList();
   }
 }

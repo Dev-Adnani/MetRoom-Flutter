@@ -1,9 +1,12 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/core/models/events.model.dart';
 import 'package:metroom/core/models/room.model.dart';
+import 'package:metroom/core/notifiers/authentication.notifier.dart';
+import 'package:metroom/core/notifiers/events.notifier.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
+import 'package:metroom/presentation/screens/homeScreen/widgets/events.widget.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/feature.widget.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +18,9 @@ class HomeScreen extends StatelessWidget {
     ThemeNotifier _themeNotifier =
         Provider.of<ThemeNotifier>(context, listen: true);
     var themeFlag = _themeNotifier.darkTheme;
+    double _height = MediaQuery.of(context).size.height / 815;
+    AuthenticationNotifer _auth =
+        Provider.of<AuthenticationNotifer>(context, listen: true);
     return Scaffold(
       backgroundColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
       body: SafeArea(
@@ -25,82 +31,158 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 5),
-                  child: Text(
-                    "Find and Book",
-                    style: TextStyle(
-                      color:
-                          themeFlag ? AppColors.creamColor : AppColors.mirage,
-                      fontSize: 14,
-                    ),
+                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Hi! , ${_auth.userName ?? 'User'}",
+                        style: TextStyle(
+                          color: themeFlag
+                              ? AppColors.creamColor
+                              : AppColors.mirage,
+                          fontSize: 22,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        "Find and Book",
+                        style: TextStyle(
+                          color: themeFlag
+                              ? AppColors.creamColor
+                              : AppColors.mirage,
+                          fontSize: 14,
+                        ),
+                      ),
+                      Text(
+                        "The Best Hotel Rooms",
+                        style: TextStyle(
+                          color: themeFlag
+                              ? AppColors.creamColor
+                              : AppColors.mirage,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 22,
+                        ),
+                      ),
+                      Text(
+                        "Featured",
+                        style: TextStyle(
+                          color: themeFlag
+                              ? AppColors.creamColor
+                              : AppColors.mirage,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-                  child: Text(
-                    "The Best Hotel Rooms",
-                    style: TextStyle(
-                      color:
-                          themeFlag ? AppColors.creamColor : AppColors.mirage,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
-                  child: Text(
-                    "Featured",
-                    style: TextStyle(
-                      color:
-                          themeFlag ? AppColors.creamColor : AppColors.mirage,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 22,
-                    ),
-                  ),
-                ),
-                Consumer<RoomNotifier>(
-                  builder: (context, notifier, _) {
-                    return FutureBuilder(
-                      future: notifier.getAllRooms(),
-                      builder: (BuildContext context, AsyncSnapshot snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else if (snapshot.hasData) {
-                          List _snapshot = snapshot.data as List;
-                          return CarouselSlider(
-                            options: CarouselOptions(
-                              height: 300,
-                              enlargeCenterPage: true,
-                              disableCenter: true,
-                              viewportFraction: .75,
-                            ),
-                            items: List.generate(
-                              snapshot.data.length,
-                              (index) {
+                Container(
+                  height: _height * 280,
+                  child: Consumer<RoomNotifier>(
+                    builder: (context, notifier, _) {
+                      return FutureBuilder(
+                        future: notifier.getAllRooms(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.hasData) {
+                            List _snapshot = snapshot.data as List;
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
                                 RoomModel roomModel = _snapshot[index];
-                                return FeatureItem(
+                                return FeatureRooms(
                                   roomModel: roomModel,
-                                  themeFlag: themeFlag,
-                                  onTapFavorite: () {},
-                                  onTap: ()  {
-                                  
+                                  onTap: () {},
+                                );
+                              },
+                            );
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Event's",
+                        style: TextStyle(
+                          color: themeFlag
+                              ? AppColors.creamColor
+                              : AppColors.mirage,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 22,
+                        ),
+                      ),
+                      Text(
+                        "Happening, Near By Hotel's",
+                        style: TextStyle(
+                          color: themeFlag
+                              ? AppColors.creamColor
+                              : AppColors.mirage,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: _height * 200,
+                  child: Consumer<EventsNotifier>(
+                    builder: (context, notifier, _) {
+                      return FutureBuilder(
+                        future: notifier.getAllEvents(),
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          } else if (snapshot.hasData) {
+                            List _snapshot = snapshot.data as List;
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                EventsModel eventsModel = _snapshot[index];
+                                return EventsItem(
+                                  eventsModel: eventsModel,
+                                  onTap: () {
+                                    print(eventsModel.eventName);
                                   },
                                 );
                               },
-                            ),
-                          );
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                    );
-                  },
+                            );
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

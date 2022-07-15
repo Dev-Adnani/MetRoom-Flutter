@@ -1,5 +1,6 @@
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/booking.notifer.dart';
+import 'package:metroom/core/notifiers/events.notifier.dart';
 import 'package:metroom/core/notifiers/feedback.notifier.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
@@ -15,5 +16,6 @@ class AppProvider {
     ChangeNotifierProvider(create: (_) => FeedbackNotifier()),
     ChangeNotifierProvider(create: (_) => RoomNotifier()),
     ChangeNotifierProvider(create: (_) => BookingNotifier()),
+    ChangeNotifierProvider(create: (_) => EventsNotifier()),
   ];
 }
