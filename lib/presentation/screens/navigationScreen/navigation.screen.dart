@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
+import 'package:metroom/presentation/screens/favouriteScreen/favourite.screen.dart';
 import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/widgets/nav.bottomNav.dart';
@@ -34,7 +35,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
         children: [
           HomeScreen(),
           LoginScreen(),
-          LoginScreen(),
+          FavouriteScreen(),
           SignUpScreen(),
           SettingScreen()
         ],

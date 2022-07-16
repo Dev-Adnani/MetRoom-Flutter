@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/app/constants/app.keys.dart';
 import 'package:metroom/app/routes/app.routes.dart';
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
+import 'package:metroom/core/service/cache.service.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/icon.style.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.item.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.user.card.dart';
@@ -121,12 +123,7 @@ class SettingScreen extends StatelessWidget {
             SettingsItem(
               themeFlag: themeFlag,
               onTap: () {
-                Provider.of<AuthenticationNotifer>(context, listen: false)
-                    .logout()
-                    .whenComplete(() {
-                  Navigator.of(context)
-                      .pushReplacementNamed(AppRouter.deciderRoute);
-                });
+                showAlertDialog(context: context, themeFlag: themeFlag);
               },
               icons: Icons.logout,
               iconStyle: IconStyle(
@@ -138,6 +135,68 @@ class SettingScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  showAlertDialog({
+    required BuildContext context,
+    required bool themeFlag,
+  }) {
+    Widget cancelButton = TextButton(
+      child: const Text(
+        "No",
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w500,
+          color: Colors.blueAccent,
+        ),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: const Text(
+        "Yes",
+        style: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w500,
+          color: Colors.red,
+        ),
+      ),
+      onPressed: () {
+        CacheService.deleteKey(key: AppKeys.userData).whenComplete(() {
+          Navigator.of(context).pushReplacementNamed(AppRouter.deciderRoute);
+        });
+      },
+    );
+    AlertDialog alert = AlertDialog(
+      title: Text(
+        "Are You Sure You Want To Logout ?",
+        style: TextStyle(
+          color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+          fontSize: 18,
+        ),
+      ),
+      content: Text(
+        "You Will Regret About It!",
+        style: TextStyle(
+          color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+          fontSize: 16,
+        ),
+      ),
+      backgroundColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }

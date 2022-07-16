@@ -5,6 +5,7 @@ import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/booking.notifer.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/bookingScreen/widgets/booking.item.dart';
+import 'package:metroom/presentation/screens/noDataScreen/no.data.screen.dart';
 import 'package:provider/provider.dart';
 
 class BookingScreen extends StatelessWidget {
@@ -62,17 +63,26 @@ class BookingScreen extends StatelessWidget {
                           );
                         } else if (snapshot.hasData) {
                           List _snapshot = snapshot.data as List;
-                          return ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: snapshot.data.length,
-                            itemBuilder: (context, index) {
-                              BookingModel bookingModel = _snapshot[index];
-                              return BookingItem(
-                                bookingModel: bookingModel,
-                                themeFlag: themeFlag,
-                              );
-                            },
-                          );
+
+                          if (_snapshot.isEmpty) {
+                            return noDataFound(
+                              themeFlag: themeFlag,
+                              text:
+                                  "Looks Like You Haven't \nBooked Any Rooms 😭",
+                            );
+                          } else {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index) {
+                                BookingModel bookingModel = _snapshot[index];
+                                return BookingItem(
+                                  bookingModel: bookingModel,
+                                  themeFlag: themeFlag,
+                                );
+                              },
+                            );
+                          }
                         } else {
                           return Center(
                             child: CircularProgressIndicator(),

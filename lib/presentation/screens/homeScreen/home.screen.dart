@@ -4,10 +4,12 @@ import 'package:metroom/core/models/events.model.dart';
 import 'package:metroom/core/models/room.model.dart';
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/events.notifier.dart';
+import 'package:metroom/core/notifiers/favourite.notifier.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/events.widget.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/feature.widget.dart';
+import 'package:metroom/presentation/widgets/custom.snackbar.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -103,7 +105,31 @@ class HomeScreen extends StatelessWidget {
                                 RoomModel roomModel = _snapshot[index];
                                 return FeatureRooms(
                                   roomModel: roomModel,
-                                  onTap: () {},
+                                  onTapFavorite: () async {
+                                    var data =
+                                        await Provider.of<FavouriteNotifier>(
+                                            context,
+                                            listen: false);
+                                    bool isAdded = await data.addToFavourite(
+                                      userId: 27,
+                                      room_id: roomModel.roomId,
+                                    );
+                                    if (isAdded) {
+                                      SnackUtil.showSnackBar(
+                                        context: context,
+                                        text: 'Added To Favourite',
+                                        textColor: AppColors.creamColor,
+                                        backgroundColor: Colors.red.shade200,
+                                      );
+                                    } else {
+                                      SnackUtil.showSnackBar(
+                                        context: context,
+                                        text: data.error!,
+                                        textColor: AppColors.creamColor,
+                                        backgroundColor: Colors.red.shade200,
+                                      );
+                                    }
+                                  },
                                 );
                               },
                             );

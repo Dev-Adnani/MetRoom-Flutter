@@ -16,7 +16,9 @@ class AboutScreen extends StatelessWidget {
     var themeFlag = _themeNotifier.darkTheme;
     var mediaQueryHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: aboutAppBar(themeFlag: themeFlag,),
+      appBar: aboutAppBar(
+        themeFlag: themeFlag,
+      ),
       backgroundColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
       body: Column(
         children: [
@@ -63,6 +65,17 @@ class AboutScreen extends StatelessWidget {
           Text(
             'Version : 1.0.0',
             textAlign: TextAlign.left,
+            style: kBodyText.copyWith(
+              fontSize: 16,
+              color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+            ),
+          ),
+          SizedBox(
+            height: mediaQueryHeight / 40,
+          ),
+          Text(
+            'For Any Queries ,\n Contact : dev.adnani26@gmail.com',
+            textAlign: TextAlign.center,
             style: kBodyText.copyWith(
               fontSize: 16,
               color: themeFlag ? AppColors.creamColor : AppColors.mirage,

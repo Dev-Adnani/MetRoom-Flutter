@@ -92,7 +92,7 @@ class FeatureRooms extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: onTapFavorite,
                 ),
               ),
             ],

@@ -38,6 +38,7 @@ class CustomTextField {
           contentPadding: const EdgeInsets.all(20),
           hintText: hintText,
           hintStyle: kBodyText,
+          counter: Offstage(),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color: themeFlag ? AppColors.creamColor : AppColors.mirage,
@@ -77,7 +78,6 @@ class CustomTextField {
           color: themeFlag ? AppColors.creamColor : AppColors.mirage,
         ),
         obscureText: isPasswordVisible,
-        
         keyboardType: TextInputType.text,
         textInputAction: TextInputAction.done,
         decoration: InputDecoration(

@@ -10,7 +10,6 @@ class EventsNotifier extends ChangeNotifier {
   Future getAllEvents() async {
     if (allEventsData == null) {
       allEventsData = await eventsService.getAllEvents();
-      print(allEventsData!.data);
       notifyListeners();
       return allEventsData!.data
           .map((element) => EventsModel.fromJson(element))

@@ -82,9 +82,7 @@ class AuthenticationNotifer extends ChangeNotifier {
     }
   }
 
-  Future logout() async {
-    await CacheService.deleteKey(key: AppKeys.userData);
-  }
+ 
 
   Future<PostgrestResponse?> addUserToDatabase(
       {required UserModel userModel}) async {
