@@ -111,7 +111,7 @@ class HomeScreen extends StatelessWidget {
                                             context,
                                             listen: false);
                                     bool isAdded = await data.addToFavourite(
-                                      userId: 27,
+                                      userId: _auth.userId!,
                                       room_id: roomModel.roomId,
                                     );
                                     if (isAdded) {

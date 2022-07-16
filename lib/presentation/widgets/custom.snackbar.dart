@@ -10,6 +10,7 @@ class SnackUtil {
     return SnackBar(
       backgroundColor: backgroundColor,
       behavior: SnackBarBehavior.floating,
+      duration: Duration(seconds: 1),
       margin: const EdgeInsets.fromLTRB(40, 0, 40, 100),
       content: Text(
         text,

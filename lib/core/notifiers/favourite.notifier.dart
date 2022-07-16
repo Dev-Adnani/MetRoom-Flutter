@@ -6,10 +6,11 @@ import 'package:supabase/supabase.dart';
 class FavouriteNotifier extends ChangeNotifier {
   String? error;
   final FavoriteService favoriteService = FavoriteService();
+  PostgrestResponse? allFavData;
 
-  Future<PostgrestResponse> getAllFavourite({required int userId}) async {
-    var data = await favoriteService.getAllFavourite(userId: userId);
-    return data.data
+  Future getAllFavourite({required int userId}) async {
+    allFavData = await favoriteService.getAllFavourite(userId: userId);
+    return allFavData!.data
         .map((element) => FavouriteModel.fromJson(element))
         .toList();
   }
@@ -26,13 +27,17 @@ class FavouriteNotifier extends ChangeNotifier {
     }
   }
 
-  Future<bool> deleteFromFavourite({required int favouriteId}) async {
+  Future<bool> deleteFromFavourite({
+    required int favouriteId,
+  }) async {
     var data =
         await favoriteService.deleteFromFavourite(favouriteId: favouriteId);
     if (data.hasError) {
       error = data.error!.message;
+      notifyListeners();
       return false;
     } else {
+      notifyListeners();
       return true;
     }
   }

@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final roomModel = roomModelFromJson(jsonString);
 import 'dart:convert';
 
 List<RoomModel> roomModelFromJson(String str) =>
