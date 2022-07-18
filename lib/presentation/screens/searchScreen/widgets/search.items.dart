@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
-import 'package:metroom/core/models/favourite.model.dart';
+import 'package:metroom/core/models/room.model.dart';
 
-class FavouriteItem extends StatelessWidget {
-  FavouriteItem(
-      {Key? key, this.onTap, required this.favouriteModel, this.onDelete})
-      : super(key: key);
+class SearchItem extends StatelessWidget {
+  SearchItem({Key? key, this.onTap, required this.roomModel}) : super(key: key);
 
   final GestureTapCallback? onTap;
-  final GestureTapCallback? onDelete;
-
-  final FavouriteModel favouriteModel;
+  final RoomModel roomModel;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +17,13 @@ class FavouriteItem extends StatelessWidget {
       child: Container(
         height: _height * 205,
         width: _width * 375,
-        padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
+        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 7),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(30.0),
           child: Stack(
             children: [
               Image.network(
-                favouriteModel.rooms.roomPhotos[0],
+                roomModel.roomPhotos[0],
                 fit: BoxFit.cover,
                 height: _height * 205,
                 width: _width * 375,
@@ -36,47 +32,24 @@ class FavouriteItem extends StatelessWidget {
                 height: _height * 205,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    stops: [0.0, 0.9],
+                    stops: [0.2, 0.9],
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
                       Colors.transparent,
-                      Colors.black.withOpacity(0.9),
+                      Colors.black.withOpacity(0.6),
                     ],
                   ),
-                ),
-              ),
-              Positioned(
-                left: 310,
-                top: 2,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.delete,
-                    size: _height * 22,
-                    color: Colors.white,
-                    shadows: [
-                      BoxShadow(
-                        color: Colors.black,
-                        offset: const Offset(
-                          0.0,
-                          0.0,
-                        ),
-                        blurRadius: 20.0,
-                        spreadRadius: 4.0,
-                      ),
-                    ],
-                  ),
-                  onPressed: onDelete,
                 ),
               ),
               Positioned(
                 left: 10,
-                top: 105,
+                top: 95,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      favouriteModel.rooms.roomName,
+                      roomModel.roomName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -85,7 +58,7 @@ class FavouriteItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      favouriteModel.rooms.roomType,
+                      roomModel.roomType,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -94,7 +67,7 @@ class FavouriteItem extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      favouriteModel.rooms.roomAddress,
+                      roomModel.roomAddress,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -113,7 +86,7 @@ class FavouriteItem extends StatelessWidget {
                           width: 5,
                         ),
                         Text(
-                          favouriteModel.rooms.roomRating.toString(),
+                          roomModel.roomRating.toString(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -124,7 +97,7 @@ class FavouriteItem extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '₹ ${favouriteModel.rooms.roomPrice.toString()} Per Room',
+                      '₹ ${roomModel.roomPrice.toString()} Per Room',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

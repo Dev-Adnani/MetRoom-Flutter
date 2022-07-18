@@ -3,10 +3,7 @@ import 'package:metroom/core/models/room.model.dart';
 
 class FeatureRooms extends StatelessWidget {
   FeatureRooms(
-      {Key? key,
-      this.onTap,
-      this.onTapFavorite,
-      required this.roomModel})
+      {Key? key, this.onTap, this.onTapFavorite, required this.roomModel})
       : super(key: key);
 
   final RoomModel roomModel;
@@ -30,6 +27,7 @@ class FeatureRooms extends StatelessWidget {
                 roomModel.roomPhotos[0],
                 fit: BoxFit.cover,
                 height: _height * 280,
+                width: 220,
               ),
               Container(
                 height: _height * 280,
@@ -53,20 +51,22 @@ class FeatureRooms extends StatelessWidget {
                   children: [
                     Text(
                       roomModel.roomName,
-                      maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: _height * 14,
                       ),
                     ),
-                    Text(
-                      roomModel.roomAddress,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: _height * 12,
+                    Container(
+                      height: 40,
+                      width: 150,
+                      child: Text(
+                        roomModel.roomAddress,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: _height * 14,
+                        ),
                       ),
                     ),
                   ],

@@ -5,7 +5,7 @@ import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/favourite.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/favouriteScreen/widgets/favourite.item.widget.dart';
-import 'package:metroom/presentation/screens/noDataScreen/no.data.screen.dart';
+import 'package:metroom/presentation/widgets/no.data.dart';
 import 'package:metroom/presentation/widgets/custom.snackbar.dart';
 import 'package:provider/provider.dart';
 
@@ -67,8 +67,7 @@ class FavouriteScreen extends StatelessWidget {
                           if (_snapshot.isEmpty) {
                             return noDataFound(
                               themeFlag: themeFlag,
-                              text:
-                                  "Looks Like You Haven't \nAdded Your Room 😭",
+                             
                             );
                           } else {
                             return ListView.builder(

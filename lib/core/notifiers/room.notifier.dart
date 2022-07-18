@@ -4,8 +4,10 @@ import 'package:metroom/core/service/room.service.dart';
 import 'package:supabase/supabase.dart';
 
 class RoomNotifier extends ChangeNotifier {
+  //
   final RoomService roomService = RoomService();
   PostgrestResponse? allRoomsData;
+
   Future getAllRooms() async {
     if (allRoomsData == null) {
       allRoomsData = await roomService.getAllRooms();
@@ -22,8 +24,11 @@ class RoomNotifier extends ChangeNotifier {
 
   Future getSpecificRoom({required int roomId}) async {
     var data = await roomService.getSpecificRoom(roomId: roomId);
-    return data.data
-        .map((element) => RoomModel.fromJson(element))
-        .toList();
+    return data.data.map((element) => RoomModel.fromJson(element)).toList();
+  }
+
+  Future getSearchRooms({required String roomName}) async {
+    var data = await roomService.getSearchRooms(roomName: roomName);
+    return data.data.map((element) => RoomModel.fromJson(element)).toList();
   }
 }

@@ -8,6 +8,7 @@ import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/navigation.screen.dart';
 import 'package:metroom/presentation/screens/onBoardingScreen/on.boarding.screen.dart';
+import 'package:metroom/presentation/screens/searchScreen/search.screen.dart';
 import 'package:metroom/presentation/screens/settingScreen/setting.screen.dart';
 import 'package:metroom/presentation/screens/signupScreen/signup.screen.dart';
 import 'package:metroom/presentation/screens/splashScreen/splash.screen.dart';
@@ -26,6 +27,7 @@ class AppRouter {
   static const String roomDetailRoute = "/room";
   static const String bookingRoute = "/booking";
   static const String favRoute = "/fav";
+  static const String searchRoute = "/search";
 
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -99,6 +101,12 @@ class AppRouter {
         {
           return MaterialPageRoute(
             builder: (_) => FavouriteScreen(),
+          );
+        }
+      case searchRoute:
+        {
+          return MaterialPageRoute(
+            builder: (_) => SearchScreen(),
           );
         }
     }

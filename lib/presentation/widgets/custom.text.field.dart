@@ -5,6 +5,55 @@ import 'package:metroom/presentation/widgets/custom.styles.dart';
 import 'package:provider/provider.dart';
 
 class CustomTextField {
+  static customTextField2({
+    required hintText,
+    TextEditingController? textEditingController,
+    TextInputType? inputType,
+    bool? enabled,
+    int? maxLength,
+    required bool themeFlag,
+    int? minLines,
+    int? maxLines,
+    String? initialValue,
+    String? Function(String?)? validator,
+    Function(String)? onChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: TextFormField(
+        enabled: enabled,
+        onChanged: onChanged,
+        maxLength: maxLength,
+        minLines: minLines,
+        maxLines: maxLines,
+        controller: textEditingController,
+        validator: validator,
+        initialValue: initialValue,
+        style: kBodyText.copyWith(
+          color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+        ),
+        decoration: InputDecoration(
+          contentPadding:
+              const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 5),
+          border: InputBorder.none,
+          hintText: hintText,
+          hintStyle: kBodyText.copyWith(
+            color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+          ),
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(top: 0),
+            child: Icon(
+              Icons.search,
+              color: AppColors.rawSienna,
+            ),
+          ),
+        ),
+        keyboardType: inputType,
+        textInputAction: TextInputAction.next,
+      ),
+    );
+  }
+
   static customTextField({
     required hintText,
     TextEditingController? textEditingController,

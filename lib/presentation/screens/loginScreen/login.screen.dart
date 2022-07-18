@@ -37,126 +37,111 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       body: SafeArea(
-        child: CustomScrollView(
-          reverse: true,
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                fit: FlexFit.loose,
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Flexible(
-                      fit: FlexFit.loose,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Welcome back.",
-                            style: TextStyle(
-                              color: themeFlag
-                                  ? AppColors.creamColor
-                                  : AppColors.mirage,
-                              fontSize: 34,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Text(
-                            "You've been missed!",
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w500,
-                              color: themeFlag
-                                  ? AppColors.creamColor
-                                  : AppColors.mirage,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 60,
-                          ),
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                CustomTextField.customTextField(
-                                  hintText: 'Email',
-                                  inputType: TextInputType.text,
-                                  textEditingController: userEmailController,
-                                  validator: (val) =>
-                                      !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                                              .hasMatch(val!)
-                                          ? 'Enter an email'
-                                          : null,
-                                  themeFlag: themeFlag,
-                                ),
-                                CustomTextField.customPasswordField(
-                                  themeFlag: themeFlag,
-                                  context: context,
-                                  validator: (val) =>
-                                      val!.isEmpty ? 'Enter a password' : null,
-                                  onTap: () {
-                                    Provider.of<ObscureTextUtil>(context,
-                                            listen: false)
-                                        .toggleObs();
-                                  },
-                                  textEditingController: userPassController,
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                    Text(
+                      "Welcome back.",
+                      style: TextStyle(
+                        color:
+                            themeFlag ? AppColors.creamColor : AppColors.mirage,
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Dont't have an account? ",
-                          style: kBodyText.copyWith(
-                            color: themeFlag
-                                ? AppColors.creamColor
-                                : AppColors.mirage,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(AppRouter.signupRoute);
-                          },
-                          child: Text(
-                            'Register',
-                            style: kBodyText.copyWith(
-                              color: themeFlag
-                                  ? AppColors.creamColor
-                                  : AppColors.mirage,
-                            ),
-                          ),
-                        )
-                      ],
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
-                    CustomButton.customBtnLogin(
-                      buttonName: 'Sign In',
-                      onTap: () {
-                        login(context: context);
-                      },
-                      bgColor:
-                          themeFlag ? AppColors.creamColor : AppColors.mirage,
-                      textColor:
-                          themeFlag ? AppColors.mirage : AppColors.creamColor,
+                    Text(
+                      "You've been missed!",
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w500,
+                        color:
+                            themeFlag ? AppColors.creamColor : AppColors.mirage,
+                      ),
                     ),
+                    const SizedBox(
+                      height: 60,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          CustomTextField.customTextField(
+                            hintText: 'Email',
+                            inputType: TextInputType.text,
+                            textEditingController: userEmailController,
+                            validator: (val) =>
+                                !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                                        .hasMatch(val!)
+                                    ? 'Enter an email'
+                                    : null,
+                            themeFlag: themeFlag,
+                          ),
+                          CustomTextField.customPasswordField(
+                            themeFlag: themeFlag,
+                            context: context,
+                            validator: (val) =>
+                                val!.isEmpty ? 'Enter a password' : null,
+                            onTap: () {
+                              Provider.of<ObscureTextUtil>(context,
+                                      listen: false)
+                                  .toggleObs();
+                            },
+                            textEditingController: userPassController,
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Dont't have an account? ",
+                    style: kBodyText.copyWith(
+                      color:
+                          themeFlag ? AppColors.creamColor : AppColors.mirage,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRouter.signupRoute);
+                    },
+                    child: Text(
+                      'Register',
+                      style: kBodyText.copyWith(
+                        color:
+                            themeFlag ? AppColors.creamColor : AppColors.mirage,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              CustomButton.customBtnLogin(
+                buttonName: 'Sign In',
+                onTap: () {
+                  login(context: context);
+                },
+                bgColor: themeFlag ? AppColors.creamColor : AppColors.mirage,
+                textColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -171,16 +156,14 @@ class LoginScreen extends StatelessWidget {
         password: userPassController.text,
       );
       if (isValid) {
-        Navigator.of(context)
-            .pushReplacementNamed(AppRouter.navRoute);
-            
-          SnackUtil.showSnackBar(
-            context: context,
-            text: "Login Successfull",
-            textColor: AppColors.creamColor,
-            backgroundColor: Colors.green,
-          );
-        
+        Navigator.of(context).pushReplacementNamed(AppRouter.navRoute);
+
+        SnackUtil.showSnackBar(
+          context: context,
+          text: "Login Successfull",
+          textColor: AppColors.creamColor,
+          backgroundColor: Colors.green,
+        );
       } else {
         var errorType =
             Provider.of<AuthenticationNotifer>(context, listen: false).error;

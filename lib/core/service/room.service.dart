@@ -16,4 +16,13 @@ class RoomService {
         .execute();
     return response;
   }
+
+  Future<PostgrestResponse> getSearchRooms({required String roomName}) async {
+    PostgrestResponse response = await SupabaseAPI.supabaseClient
+        .from("rooms")
+        .select()
+        .textSearch('room_name', roomName)
+        .execute();
+    return response;
+  }
 }
