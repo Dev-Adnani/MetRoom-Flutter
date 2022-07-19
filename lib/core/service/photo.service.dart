@@ -1,44 +1,44 @@
 import 'dart:async';
-import 'package:cloudinary_sdk/cloudinary_sdk.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:metroom/app/constants/app.credentials.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:metroom/core/api/supabase.api.dart';
 
 class PhotoService with ChangeNotifier {
-  final cloudinary = Cloudinary.full(
-    apiKey: AppCredentials.cloudinaryApiKey,
-    apiSecret: AppCredentials.cloudinaryApiSecret,
-    cloudName: AppCredentials.cloudinaryCloudName,
-  );
-
-  FilePickerResult? file;
+  final _picker = ImagePicker();
+  var imageFile;
   String? photo_url;
+  String? errorUpload;
 
   Future selectFile() async {
-    file = await FilePicker.platform.pickFiles(
-      allowCompression: true,
-      type: FileType.image,
+    imageFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
     );
     notifyListeners();
   }
 
   Future upload<bool>({required BuildContext context}) async {
-    final response = await cloudinary.uploadResource(
-      CloudinaryUploadResource(
-        filePath: file!.files.single.path,
-        resourceType: CloudinaryResourceType.image,
-        folder: 'task-app',
-        fileName: file!.files.single.name,
-        progressCallback: (count, total) {},
-      ),
-    );
+    final bytes = await imageFile.readAsBytes();
+    final fileExt = imageFile.path.split('.').last;
+    final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
+    final filePath = fileName;
 
-    if (response.isSuccessful) {
-      photo_url = response.secureUrl;
-      notifyListeners();
-      return true;
-    } else {
+    final response = await SupabaseAPI.supabaseClient.storage
+        .from('user-images')
+        .uploadBinary(filePath, bytes);
+    final error = response.error;
+
+    if (error != null) {
+      errorUpload = error.message;
+      print(errorUpload!);
       return false;
+    } else {
+      final imageUrlResponse = SupabaseAPI.supabaseClient.storage
+          .from('user-images')
+          .getPublicUrl(filePath);
+      print(imageUrlResponse.data);
+      return true;
     }
+    
   }
 }

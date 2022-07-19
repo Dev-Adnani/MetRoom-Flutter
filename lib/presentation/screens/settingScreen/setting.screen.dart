@@ -62,7 +62,9 @@ class SettingScreen extends StatelessWidget {
             ),
             SettingsItem(
               themeFlag: themeFlag,
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(AppRouter.profileRoute);
+              },
               icons: CupertinoIcons.profile_circled,
               iconStyle: IconStyle(),
               title: 'Profile',

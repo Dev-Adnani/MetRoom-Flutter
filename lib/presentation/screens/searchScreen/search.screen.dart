@@ -100,7 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
             builder: (context, notifier, _) {
               return FutureBuilder(
                 future: notifier.getSearchRooms(
-                  roomName: searchProductController.text,
+                  roomName: searchProductController.text.replaceAll(' ', ''),
                 ),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -108,7 +108,8 @@ class _SearchScreenState extends State<SearchScreen> {
                         context: context, displayTrash: false);
                   } else {
                     List _snapshot = snapshot.data as List;
-                    if (_snapshot.isEmpty) {
+                    print(searchProductController.text.replaceAll(' ', ''));
+                    if (_snapshot.length == 0 || _snapshot.isEmpty) {
                       return noDataFound(
                         themeFlag: themeFlag,
                       );

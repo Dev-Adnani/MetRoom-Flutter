@@ -258,7 +258,7 @@ class ShimmerEffects {
       itemCount: 8,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          height: _height * 205,
+          height: _height * 190,
           width: _width * 375,
           padding: const EdgeInsets.fromLTRB(15, 0, 15, 10),
           child: ClipRRect(
@@ -269,12 +269,12 @@ class ShimmerEffects {
                   baseColor: _shimmerColor,
                   highlightColor: _shimmerColorDark,
                   child: Container(
-                    height: _height * 205,
+                    height: _height * 190,
                     width: _width * 375,
                     decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(
                         Radius.circular(20.0),
-                      ),
+                      ),  
                       color: Colors.white,
                     ),
                   ),
@@ -296,7 +296,7 @@ class ShimmerEffects {
                     : SizedBox(),
                 Positioned(
                   left: 10,
-                  top: 140,
+                  top: 110,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/core/models/room.model.dart';
 
 class FeatureRooms extends StatelessWidget {
@@ -45,7 +46,7 @@ class FeatureRooms extends StatelessWidget {
               ),
               Positioned(
                 left: 15,
-                top: 230,
+                top: 210,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -58,7 +59,7 @@ class FeatureRooms extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      height: 40,
+                      height: 25,
                       width: 150,
                       child: Text(
                         roomModel.roomAddress,
@@ -67,6 +68,15 @@ class FeatureRooms extends StatelessWidget {
                           color: Colors.white,
                           fontSize: _height * 14,
                         ),
+                      ),
+                    ),
+                    Text(
+                      '₹ ${roomModel.roomPrice.toString()} Per Room',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AppColors.yellowish,
+                        fontSize: _height * 12,
                       ),
                     ),
                   ],
