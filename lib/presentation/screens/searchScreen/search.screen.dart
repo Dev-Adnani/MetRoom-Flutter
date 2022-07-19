@@ -7,6 +7,7 @@ import 'package:metroom/presentation/widgets/no.data.dart';
 import 'package:metroom/presentation/screens/searchScreen/widgets/search.items.dart';
 import 'package:metroom/presentation/widgets/custom.styles.dart';
 import 'package:metroom/presentation/widgets/custom.text.field.dart';
+import 'package:metroom/presentation/widgets/shimmer.effects.dart';
 import 'package:provider/provider.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -70,7 +71,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         Center(
                           child: Text(
-                            '💞 Search Your Room',
+                            'Search Your Room 🔥🤞',
                             style: kBodyText.copyWith(
                               fontSize: _height * 20,
                               fontWeight: FontWeight.bold,
@@ -103,10 +104,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  } else if (snapshot.hasData) {
+                    return ShimmerEffects.loadShimmerFavouriteandSearch(
+                        context: context, displayTrash: false);
+                  } else {
                     List _snapshot = snapshot.data as List;
                     if (_snapshot.isEmpty) {
                       return noDataFound(
@@ -124,10 +124,6 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                       );
                     }
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
                   }
                 },
               );

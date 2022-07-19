@@ -7,6 +7,7 @@ import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/favouriteScreen/widgets/favourite.item.widget.dart';
 import 'package:metroom/presentation/widgets/no.data.dart';
 import 'package:metroom/presentation/widgets/custom.snackbar.dart';
+import 'package:metroom/presentation/widgets/shimmer.effects.dart';
 import 'package:provider/provider.dart';
 
 class FavouriteScreen extends StatelessWidget {
@@ -58,16 +59,17 @@ class FavouriteScreen extends StatelessWidget {
                       future: notifier.getAllFavourite(userId: _auth.userId!),
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
+                                ConnectionState.waiting 
+                            ) {
+                          return ShimmerEffects.loadShimmerFavouriteandSearch(
+                            context: context,
+                            displayTrash: true,
                           );
-                        } else if (snapshot.hasData) {
+                        } else {
                           List _snapshot = snapshot.data as List;
                           if (_snapshot.isEmpty) {
                             return noDataFound(
                               themeFlag: themeFlag,
-                             
                             );
                           } else {
                             return ListView.builder(
@@ -103,10 +105,6 @@ class FavouriteScreen extends StatelessWidget {
                               },
                             );
                           }
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
                         }
                       },
                     );

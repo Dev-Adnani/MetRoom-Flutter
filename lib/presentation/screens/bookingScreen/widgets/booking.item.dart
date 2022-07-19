@@ -47,6 +47,8 @@ class BookingItem extends StatelessWidget {
                       image: NetworkImage(
                         bookingModel.rooms.roomPhotos[1],
                       ),
+                      height: 80,
+                      width: 70,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -70,7 +72,7 @@ class BookingItem extends StatelessWidget {
                                 ? AppColors.mirage
                                 : AppColors.creamColor,
                             fontWeight: FontWeight.w500,
-                            fontSize: _width * 14,
+                            fontSize: _width * 12,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),

@@ -6,6 +6,7 @@ import 'package:metroom/core/notifiers/booking.notifer.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/bookingScreen/widgets/booking.item.dart';
 import 'package:metroom/presentation/widgets/no.data.dart';
+import 'package:metroom/presentation/widgets/shimmer.effects.dart';
 import 'package:provider/provider.dart';
 
 class BookingScreen extends StatelessWidget {
@@ -58,10 +59,9 @@ class BookingScreen extends StatelessWidget {
                       builder: (BuildContext context, AsyncSnapshot snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        } else if (snapshot.hasData) {
+                          return ShimmerEffects.loadBookingItem(
+                              context: context);
+                        } else {
                           List _snapshot = snapshot.data as List;
 
                           if (_snapshot.isEmpty) {
@@ -81,10 +81,6 @@ class BookingScreen extends StatelessWidget {
                               },
                             );
                           }
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
                         }
                       },
                     );

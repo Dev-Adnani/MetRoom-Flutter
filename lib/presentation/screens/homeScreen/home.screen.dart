@@ -10,6 +10,7 @@ import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/events.widget.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/feature.widget.dart';
 import 'package:metroom/presentation/widgets/custom.snackbar.dart';
+import 'package:metroom/presentation/widgets/shimmer.effects.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -91,11 +92,12 @@ class HomeScreen extends StatelessWidget {
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(),
+                                  ConnectionState.waiting ||
+                              !snapshot.hasData) {
+                            return ShimmerEffects.loadShimmerHome(
+                              context: context,
                             );
-                          } else if (snapshot.hasData) {
+                          } else {
                             List _snapshot = snapshot.data as List;
                             return ListView.builder(
                               shrinkWrap: true,
@@ -132,10 +134,6 @@ class HomeScreen extends StatelessWidget {
                                   },
                                 );
                               },
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
                             );
                           }
                         },
@@ -181,8 +179,8 @@ class HomeScreen extends StatelessWidget {
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
-                            return Center(
-                              child: CircularProgressIndicator(),
+                            return ShimmerEffects.loadShimmerEvent(
+                              context: context,
                             );
                           } else if (snapshot.hasData) {
                             List _snapshot = snapshot.data as List;
@@ -194,9 +192,7 @@ class HomeScreen extends StatelessWidget {
                                 EventsModel eventsModel = _snapshot[index];
                                 return EventsItem(
                                   eventsModel: eventsModel,
-                                  onTap: () {
-                                    print(eventsModel.eventName);
-                                  },
+                                  onTap: () {},
                                 );
                               },
                             );
