@@ -113,8 +113,13 @@ class AppRouter {
         }
       case profileRoute:
         {
-          return MaterialPageRoute(
-            builder: (_) => ProfileScreen(),
+           return MaterialPageRoute(
+            builder: (context) => ProfileScreen(
+              profileTaskArgs: ModalRoute.of(context)!
+                  .settings
+                  .arguments as ProfileTaskArgs,
+            ),
+            settings: settings,
           );
         }
     }

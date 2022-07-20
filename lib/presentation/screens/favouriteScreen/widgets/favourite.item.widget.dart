@@ -71,7 +71,7 @@ class FavouriteItem extends StatelessWidget {
               ),
               Positioned(
                 left: 10,
-                top: 105,
+                top: 95,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

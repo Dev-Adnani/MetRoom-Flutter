@@ -21,4 +21,21 @@ class AuthenticationService {
     );
     return res;
   }
+
+  Future<PostgrestResponse> updateUserData(
+      {required String useremail,
+      required String username,
+      required String userMobileNo,
+      required String userPhoto}) async {
+    PostgrestResponse? response = await SupabaseAPI.supabaseClient
+        .from("users")
+        .update({
+          'user_name': username,
+          'user_profile_url': userPhoto,
+          'user_phone_no': userMobileNo
+        })
+        .eq("user_email", useremail)
+        .execute();
+    return response;
+  }
 }

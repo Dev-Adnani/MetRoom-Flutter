@@ -1,19 +1,23 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:metroom/core/api/supabase.api.dart';
 
 class PhotoService with ChangeNotifier {
-  final _picker = ImagePicker();
+  final picker = ImagePicker();
   var imageFile;
   String? photo_url;
   String? errorUpload;
+  File? image;
 
   Future selectFile() async {
-    imageFile = await _picker.pickImage(
+    imageFile = await picker.pickImage(
       source: ImageSource.gallery,
       imageQuality: 50,
     );
+    image = File(imageFile.path);
+    print(image);
     notifyListeners();
   }
 
@@ -36,9 +40,9 @@ class PhotoService with ChangeNotifier {
       final imageUrlResponse = SupabaseAPI.supabaseClient.storage
           .from('user-images')
           .getPublicUrl(filePath);
-      print(imageUrlResponse.data);
+      photo_url = imageUrlResponse.data;
+      notifyListeners();
       return true;
     }
-    
   }
 }

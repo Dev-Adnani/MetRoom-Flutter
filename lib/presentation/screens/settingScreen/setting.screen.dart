@@ -6,6 +6,7 @@ import 'package:metroom/app/routes/app.routes.dart';
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/core/service/cache.service.dart';
+import 'package:metroom/presentation/screens/profileScreen/profile.screen.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/icon.style.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.item.dart';
 import 'package:metroom/presentation/screens/settingScreen/widgets/setting.user.card.dart';
@@ -63,7 +64,15 @@ class SettingScreen extends StatelessWidget {
             SettingsItem(
               themeFlag: themeFlag,
               onTap: () {
-                Navigator.of(context).pushNamed(AppRouter.profileRoute);
+                Navigator.of(context).pushNamed(
+                  AppRouter.profileRoute,
+                  arguments: ProfileTaskArgs(
+                    user_name: userData.userName!,
+                    user_email: userData.userEmail!,
+                    user_phoneNo: userData.userPhoneNo!,
+                    user_image: userData.userPhoto!,
+                  ),
+                );
               },
               icons: CupertinoIcons.profile_circled,
               iconStyle: IconStyle(),

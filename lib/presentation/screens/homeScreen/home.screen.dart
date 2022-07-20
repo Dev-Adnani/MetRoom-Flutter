@@ -178,11 +178,12 @@ class HomeScreen extends StatelessWidget {
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
+                                  ConnectionState.waiting ||
+                              !snapshot.hasData) {
                             return ShimmerEffects.loadShimmerEvent(
                               context: context,
                             );
-                          } else if (snapshot.hasData) {
+                          } else {
                             List _snapshot = snapshot.data as List;
                             return ListView.builder(
                               shrinkWrap: true,
@@ -195,10 +196,6 @@ class HomeScreen extends StatelessWidget {
                                   onTap: () {},
                                 );
                               },
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
                             );
                           }
                         },

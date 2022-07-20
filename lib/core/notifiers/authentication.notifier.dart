@@ -82,8 +82,6 @@ class AuthenticationNotifer extends ChangeNotifier {
     }
   }
 
- 
-
   Future<PostgrestResponse?> addUserToDatabase(
       {required UserModel userModel}) async {
     try {
@@ -140,5 +138,28 @@ class AuthenticationNotifer extends ChangeNotifier {
       print(e.toString());
     }
     return null;
+  }
+
+  Future<bool> updateUserData({
+    required String useremail,
+    required String username,
+    required String userMobileNo,
+    required String userPhoto,
+  }) async {
+    final isUpdated = await _authenticationService.updateUserData(
+      useremail: useremail,
+      username: username,
+      userMobileNo: userMobileNo,
+      userPhoto: userPhoto,
+    );
+
+    if (isUpdated.hasError) {
+      error = isUpdated.error!.message;
+      return false;
+    } else {
+      print(isUpdated.data);
+      getUserDataByID(user_id: userId!);
+      return true;
+    }
   }
 }
