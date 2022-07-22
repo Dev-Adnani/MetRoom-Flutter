@@ -3,22 +3,24 @@ import 'package:metroom/core/models/room.model.dart';
 import 'package:metroom/core/service/room.service.dart';
 import 'package:supabase/supabase.dart';
 
-class RoomNotifier extends ChangeNotifier {
-  //
-  final RoomService roomService = RoomService();
-  PostgrestResponse? allRoomsData;
+enum RoomSort { ByPrice, ByRating, ByAmentities, ByAscendingOrder, Normal }
 
-  Future getAllRooms() async {
-    if (allRoomsData == null) {
-      allRoomsData = await roomService.getAllRooms();
-      notifyListeners();
-      return allRoomsData!.data
-          .map((element) => RoomModel.fromJson(element))
-          .toList();
-    } else {
-      return allRoomsData!.data
-          .map((element) => RoomModel.fromJson(element))
-          .toList();
+class RoomNotifier extends ChangeNotifier {
+  final RoomService roomService = RoomService();
+
+  Future getAllRooms({required RoomSort roomSort}) async {
+    PostgrestResponse allRoomsData = await roomService.getAllRooms();
+    var roomList = allRoomsData.data
+        .map((element) => RoomModel.fromJson(element))
+        .toList();
+    if (roomSort == RoomSort.Normal) {
+      return roomList;
+    } else if (roomSort == RoomSort.ByPrice) {
+    } else if (roomSort == RoomSort.ByRating) {
+    } else if (roomSort == RoomSort.ByAmentities) {
+    } else if (roomSort == RoomSort.ByAscendingOrder) {
+      print(roomList!.sort());
+      return [];
     }
   }
 

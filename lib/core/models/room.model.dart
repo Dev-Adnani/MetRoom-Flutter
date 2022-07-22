@@ -14,10 +14,12 @@ class RoomModel {
     required this.roomType,
     required this.roomAddress,
     required this.roomPrice,
-    required this.roomAmenities,
+    required this.roomAmenitiesText,
+    required this.roomAmenitiesImages,
     required this.roomPhotos,
     required this.roomStatus,
     required this.roomRating,
+    required this.roomDescription,
   });
 
   int roomId;
@@ -25,9 +27,11 @@ class RoomModel {
   String roomName;
   String roomType;
   String roomAddress;
+  String roomDescription;
   int roomPrice;
   double roomRating;
-  List<String> roomAmenities;
+  List<String> roomAmenitiesText;
+  List<String> roomAmenitiesImages;
   List<String> roomPhotos;
   bool roomStatus;
 
@@ -37,9 +41,13 @@ class RoomModel {
         createdAt: json["created_at"],
         roomName: json["room_name"],
         roomType: json["room_type"],
+        roomDescription: json["room_description"],
         roomAddress: json["room_address"],
         roomPrice: json["room_price"],
-        roomAmenities: List<String>.from(json["room_amenities"].map((x) => x)),
+        roomAmenitiesText:
+            List<String>.from(json["room_amenities_text"].map((x) => x)),
+        roomAmenitiesImages:
+            List<String>.from(json["room_amenities_image"].map((x) => x)),
         roomPhotos: List<String>.from(json["room_photos"].map((x) => x)),
         roomStatus: json["room_status"],
       );
@@ -51,9 +59,12 @@ class RoomModel {
         "room_type": roomType,
         "room_address": roomAddress,
         "room_price": roomPrice,
-        "room_amenities": List<dynamic>.from(roomAmenities.map((x) => x)),
+        "room_amenities": List<dynamic>.from(roomAmenitiesText.map((x) => x)),
+        "room_amenities_image":
+            List<dynamic>.from(roomAmenitiesImages.map((x) => x)),
         "room_photos": List<dynamic>.from(roomPhotos.map((x) => x)),
         "room_status": roomStatus,
-        "room_rating":roomRating
+        "room_rating": roomRating,
+        "room_description": roomDescription
       };
 }

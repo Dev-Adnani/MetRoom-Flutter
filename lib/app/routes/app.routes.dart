@@ -9,6 +9,7 @@ import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/navigation.screen.dart';
 import 'package:metroom/presentation/screens/onBoardingScreen/on.boarding.screen.dart';
 import 'package:metroom/presentation/screens/profileScreen/profile.screen.dart';
+import 'package:metroom/presentation/screens/roomScreen/room.screen.dart';
 import 'package:metroom/presentation/screens/searchScreen/search.screen.dart';
 import 'package:metroom/presentation/screens/settingScreen/setting.screen.dart';
 import 'package:metroom/presentation/screens/signupScreen/signup.screen.dart';
@@ -113,11 +114,20 @@ class AppRouter {
         }
       case profileRoute:
         {
-           return MaterialPageRoute(
+          return MaterialPageRoute(
             builder: (context) => ProfileScreen(
-              profileTaskArgs: ModalRoute.of(context)!
-                  .settings
-                  .arguments as ProfileTaskArgs,
+              profileTaskArgs:
+                  ModalRoute.of(context)!.settings.arguments as ProfileTaskArgs,
+            ),
+            settings: settings,
+          );
+        }
+      case roomDetailRoute:
+        {
+         return MaterialPageRoute(
+            builder: (context) => RoomScreen(
+              roomScreenArgs:
+                  ModalRoute.of(context)!.settings.arguments as RoomScreenArgs,
             ),
             settings: settings,
           );
