@@ -211,7 +211,9 @@ Widget buildRoomData({
             const SizedBox(
               height: 10,
             ),
-            RoomFooter(),
+            RoomFooter(
+             roomModel: roomModel,
+            ),
             const SizedBox(
               height: 15,
             ),

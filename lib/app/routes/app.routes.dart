@@ -8,6 +8,7 @@ import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/navigation.screen.dart';
 import 'package:metroom/presentation/screens/onBoardingScreen/on.boarding.screen.dart';
+import 'package:metroom/presentation/screens/prevBookingScreen/prev.booking.screen.dart';
 import 'package:metroom/presentation/screens/profileScreen/profile.screen.dart';
 import 'package:metroom/presentation/screens/roomScreen/room.screen.dart';
 import 'package:metroom/presentation/screens/searchScreen/search.screen.dart';
@@ -27,10 +28,11 @@ class AppRouter {
   static const String aboutRoute = "/about";
   static const String feedbackRoute = "/feedback";
   static const String roomDetailRoute = "/room";
-  static const String bookingRoute = "/booking";
+  static const String prevbookingRoute = "/prevbooking";
   static const String favRoute = "/fav";
   static const String profileRoute = "/profile";
   static const String searchRoute = "/search";
+  static const String bookingRoute = "/bookingF";
 
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -94,10 +96,10 @@ class AppRouter {
             builder: (_) => FeedbackScreen(),
           );
         }
-      case bookingRoute:
+      case prevbookingRoute:
         {
           return MaterialPageRoute(
-            builder: (_) => BookingScreen(),
+            builder: (_) => PreviousBookingScreen(),
           );
         }
       case favRoute:
@@ -124,10 +126,20 @@ class AppRouter {
         }
       case roomDetailRoute:
         {
-         return MaterialPageRoute(
+          return MaterialPageRoute(
             builder: (context) => RoomScreen(
               roomScreenArgs:
                   ModalRoute.of(context)!.settings.arguments as RoomScreenArgs,
+            ),
+            settings: settings,
+          );
+        }
+      case bookingRoute:
+        {
+          return MaterialPageRoute(
+            builder: (context) => BookingScreen(
+              bookingScreenArgs: ModalRoute.of(context)!.settings.arguments
+                  as BookingScreenArgs,
             ),
             settings: settings,
           );

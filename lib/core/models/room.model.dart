@@ -20,6 +20,9 @@ class RoomModel {
     required this.roomStatus,
     required this.roomRating,
     required this.roomDescription,
+    required this.roomCallNo,
+    required this.roomLat,
+    required this.roomLong,
   });
 
   int roomId;
@@ -29,6 +32,9 @@ class RoomModel {
   String roomAddress;
   String roomDescription;
   int roomPrice;
+  int roomCallNo;
+  double roomLat;
+  double roomLong;
   double roomRating;
   List<String> roomAmenitiesText;
   List<String> roomAmenitiesImages;
@@ -50,6 +56,9 @@ class RoomModel {
             List<String>.from(json["room_amenities_image"].map((x) => x)),
         roomPhotos: List<String>.from(json["room_photos"].map((x) => x)),
         roomStatus: json["room_status"],
+        roomCallNo: json['room_phone_call'],
+        roomLat: json['room_lat'],
+        roomLong: json['room_long'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +74,9 @@ class RoomModel {
         "room_photos": List<dynamic>.from(roomPhotos.map((x) => x)),
         "room_status": roomStatus,
         "room_rating": roomRating,
-        "room_description": roomDescription
+        "room_description": roomDescription,
+        "room_long": roomLong,
+        "room_lat": roomLat,
+        "room_phone_call": roomCallNo,
       };
 }

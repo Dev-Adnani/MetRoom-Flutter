@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
@@ -23,9 +24,17 @@ Widget imageSlider(
           ),
           autoplay: true,
           itemBuilder: (BuildContext context, int index) {
-            return Image.network(
-              roomModel.roomPhotos[index],
-              fit: BoxFit.cover,
+            return CachedNetworkImage(
+              imageUrl: roomModel.roomPhotos[index],
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             );
           },
         ),

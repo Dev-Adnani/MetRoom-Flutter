@@ -4,8 +4,10 @@ import 'package:metroom/core/notifiers/events.notifier.dart';
 import 'package:metroom/core/notifiers/favourite.notifier.dart';
 import 'package:metroom/core/notifiers/feedback.notifier.dart';
 import 'package:metroom/core/notifiers/password.notifier.dart';
+import 'package:metroom/core/notifiers/payment.notifer.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
+import 'package:metroom/core/service/maps.service.dart';
 import 'package:metroom/core/service/photo.service.dart';
 import 'package:metroom/core/utils/obscure.text.util.dart';
 import 'package:provider/provider.dart';
@@ -23,5 +25,7 @@ class AppProvider {
     ChangeNotifierProvider(create: (_) => EventsNotifier()),
     ChangeNotifierProvider(create: (_) => FavouriteNotifier()),
     ChangeNotifierProvider(create: (_) => PhotoService()),
+    ChangeNotifierProvider(create: (_) => PaymentNotifier()),
+    ChangeNotifierProvider(create: (_) => MapsService()),
   ];
 }

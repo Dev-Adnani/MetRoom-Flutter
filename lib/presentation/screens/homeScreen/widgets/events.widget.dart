@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/core/models/events.model.dart';
@@ -23,11 +24,20 @@ class EventsItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(30.0),
           child: Stack(
             children: [
-              Image.network(
-                eventsModel.eventImage,
-                fit: BoxFit.cover,
-                height: _height * 205,
-                width: _width * 375,
+              CachedNetworkImage(
+                imageUrl: eventsModel.eventImage,
+                imageBuilder: (context, imageProvider) => Container(
+                  height: _height * 205,
+                  width: _width * 375,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
               Container(
                 height: _height * 205,

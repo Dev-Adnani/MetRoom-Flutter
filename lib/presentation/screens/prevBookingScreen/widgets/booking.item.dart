@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/core/models/booking.model.dart';
@@ -43,13 +44,21 @@ class BookingItem extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5.0),
-                    child: Image(
-                      image: NetworkImage(
-                        bookingModel.rooms.roomPhotos[1],
+                    child: CachedNetworkImage(
+                      imageUrl: bookingModel.rooms.roomPhotos[1],
+                      imageBuilder: (context, imageProvider) => Container(
+                        height: 80,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
-                      height: 80,
-                      width: 70,
-                      fit: BoxFit.contain,
+                      placeholder: (context, url) =>
+                          CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
                     ),
                   ),
                 ),

@@ -32,6 +32,7 @@ class AuthenticationNotifer extends ChangeNotifier {
           return false;
         } else {
           userId = dataAdded.data[0]['user_id'];
+          getUserDataByID(user_id: userId!);
           CacheService.setInt(
             key: AppKeys.userData,
             value: userId!,

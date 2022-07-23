@@ -8,6 +8,7 @@ import 'package:metroom/core/notifiers/events.notifier.dart';
 import 'package:metroom/core/notifiers/favourite.notifier.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
+import 'package:metroom/core/service/maps.service.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/events.widget.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/feature.widget.dart';
 import 'package:metroom/presentation/screens/roomScreen/room.screen.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatelessWidget {
         Provider.of<ThemeNotifier>(context, listen: true);
     var themeFlag = _themeNotifier.darkTheme;
     double _height = MediaQuery.of(context).size.height / 815;
+    Provider.of<MapsService>(context, listen: false).getCurrentLocation();
     AuthenticationNotifer _auth =
         Provider.of<AuthenticationNotifer>(context, listen: true);
     return Scaffold(

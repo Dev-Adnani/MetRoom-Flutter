@@ -82,7 +82,7 @@ class SettingScreen extends StatelessWidget {
             SettingsItem(
               themeFlag: themeFlag,
               onTap: () {
-                Navigator.of(context).pushNamed(AppRouter.bookingRoute);
+                Navigator.of(context).pushNamed(AppRouter.prevbookingRoute);
               },
               icons: CupertinoIcons.bookmark_fill,
               iconStyle: IconStyle(
