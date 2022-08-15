@@ -68,7 +68,7 @@ class MenuItems {
   static const List<MenuItem> firstItems = [normal, rating, price, amenties];
 
   static const normal =
-      MenuItem(text: 'Default', icon: Icons.disabled_by_default);
+      MenuItem(text: 'Default', icon: Icons.arrow_back_ios_new);
   static const rating = MenuItem(text: 'Rating', icon: Icons.rate_review);
   static const price = MenuItem(text: 'Price', icon: Icons.price_change);
   static const amenties = MenuItem(text: 'Amenties', icon: Icons.room_service);
@@ -98,7 +98,6 @@ class MenuItems {
       case MenuItems.rating:
         Provider.of<SortNotifier>(context, listen: false).changeByRating();
         break;
-
       case MenuItems.price:
         Provider.of<SortNotifier>(context, listen: false).changeByPrice();
         break;

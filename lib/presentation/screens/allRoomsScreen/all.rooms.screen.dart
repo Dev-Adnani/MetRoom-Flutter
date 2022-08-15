@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
 import 'package:metroom/app/routes/app.routes.dart';
@@ -103,15 +102,13 @@ class AllRoomScreen extends StatelessWidget {
                                 return SearchItem(
                                   roomModel: roomModel,
                                   onTap: () {
-                                    // Navigator.of(context).pushNamed(
-                                    //   AppRouter.roomDetailRoute,
-                                    //   arguments: RoomScreenArgs(
-                                    //     room_id: roomModel.roomId,
-                                    //   ),
-                                    // );
-                                    print(Provider.of<SortNotifier>(context,
-                                            listen: false)
-                                        .sortBySys);
+                                    Navigator.of(context).pushNamed(
+                                      AppRouter.roomDetailRoute,
+                                      arguments: RoomScreenArgs(
+                                        room_id: roomModel.roomId,
+                                      ),
+                                    );
+                                   
                                   },
                                 );
                               },
