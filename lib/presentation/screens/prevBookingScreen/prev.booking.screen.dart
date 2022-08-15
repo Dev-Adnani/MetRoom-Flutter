@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/app/routes/app.routes.dart';
 import 'package:metroom/core/models/booking.model.dart';
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/booking.notifer.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/presentation/screens/prevBookingScreen/widgets/booking.item.dart';
+import 'package:metroom/presentation/screens/roomScreen/room.screen.dart';
 import 'package:metroom/presentation/widgets/no.data.dart';
 import 'package:metroom/presentation/widgets/shimmer.effects.dart';
 import 'package:provider/provider.dart';
@@ -77,6 +79,14 @@ class PreviousBookingScreen extends StatelessWidget {
                                 return BookingItem(
                                   bookingModel: bookingModel,
                                   themeFlag: themeFlag,
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                      AppRouter.roomDetailRoute,
+                                      arguments: RoomScreenArgs(
+                                        room_id: bookingModel.rooms.roomId,
+                                      ),
+                                    );
+                                  },
                                 );
                               },
                             );

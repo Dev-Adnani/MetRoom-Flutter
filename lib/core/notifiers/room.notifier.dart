@@ -1,26 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/core/models/room.model.dart';
+import 'package:metroom/core/notifiers/sorts.notifier.dart';
 import 'package:metroom/core/service/room.service.dart';
 import 'package:supabase/supabase.dart';
-
-enum RoomSort { ByPrice, ByRating, ByAmentities, ByAscendingOrder, Normal }
 
 class RoomNotifier extends ChangeNotifier {
   final RoomService roomService = RoomService();
 
-  Future getAllRooms({required RoomSort roomSort}) async {
+  Future getAllRooms(
+      {required RoomSort roomSort, required SortingSystem sortBy}) async {
     PostgrestResponse allRoomsData = await roomService.getAllRooms();
-    var roomList = allRoomsData.data
+    List<RoomModel> roomList = (allRoomsData.data as List<dynamic>)
         .map((element) => RoomModel.fromJson(element))
         .toList();
-    if (roomSort == RoomSort.Normal) {
-      return roomList;
-    } else if (roomSort == RoomSort.ByPrice) {
-    } else if (roomSort == RoomSort.ByRating) {
-    } else if (roomSort == RoomSort.ByAmentities) {
-    } else if (roomSort == RoomSort.ByAscendingOrder) {
-      print(roomList!.sort());
-      return [];
+        
+    if (sortBy == SortingSystem.ByAscendingOrder) {
+      if (roomSort == RoomSort.Normal) {
+        return roomList;
+      } else if (roomSort == RoomSort.ByPrice) {
+        Comparator<RoomModel> priceComparator =
+            (a, b) => a.roomPrice.compareTo(b.roomPrice);
+        roomList.sort(priceComparator);
+        return roomList;
+      } else if (roomSort == RoomSort.ByRating) {
+        Comparator<RoomModel> ratingComp =
+            (a, b) => a.roomPrice.compareTo(b.roomPrice);
+        roomList.sort(ratingComp);
+        return roomList;
+      } else if (roomSort == RoomSort.ByAmentities) {
+        Comparator<RoomModel> amentitiesComp = (a, b) => a
+            .roomAmenitiesImages.length
+            .compareTo(b.roomAmenitiesImages.length);
+        roomList.sort(amentitiesComp);
+        return roomList;
+      }
+    } else if (sortBy == SortingSystem.ByDescendingOrder) {
+      if (roomSort == RoomSort.Normal) {
+        return roomList;
+      } else if (roomSort == RoomSort.ByPrice) {
+        Comparator<RoomModel> priceComparator =
+            (a, b) => b.roomPrice.compareTo(a.roomPrice);
+        roomList.sort(priceComparator);
+        return roomList;
+      } else if (roomSort == RoomSort.ByRating) {
+        Comparator<RoomModel> ratingComp =
+            (a, b) => b.roomPrice.compareTo(a.roomPrice);
+        roomList.sort(ratingComp);
+        return roomList;
+      } else if (roomSort == RoomSort.ByAmentities) {
+        Comparator<RoomModel> amentitiesComp = (a, b) => b
+            .roomAmenitiesImages.length
+            .compareTo(a.roomAmenitiesImages.length);
+        roomList.sort(amentitiesComp);
+        return roomList;
+      }
     }
   }
 

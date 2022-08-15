@@ -7,6 +7,7 @@ import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/events.notifier.dart';
 import 'package:metroom/core/notifiers/favourite.notifier.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
+import 'package:metroom/core/notifiers/sorts.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:metroom/core/service/maps.service.dart';
 import 'package:metroom/presentation/screens/homeScreen/widgets/events.widget.dart';
@@ -88,7 +89,11 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRouter.allRoomsRoute,
+                              );
+                            },
                             child: Text(
                               "See All",
                               style: TextStyle(
@@ -110,7 +115,7 @@ class HomeScreen extends StatelessWidget {
                   child: Consumer<RoomNotifier>(
                     builder: (context, notifier, _) {
                       return FutureBuilder(
-                        future: notifier.getAllRooms(roomSort: RoomSort.Normal),
+                        future: notifier.getAllRooms(roomSort: RoomSort.Normal,sortBy: SortingSystem.ByAscendingOrder),
                         builder:
                             (BuildContext context, AsyncSnapshot snapshot) {
                           if (snapshot.connectionState ==

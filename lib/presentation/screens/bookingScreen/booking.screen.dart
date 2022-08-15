@@ -3,11 +3,14 @@ import 'package:metroom/core/models/room.model.dart';
 
 class BookingScreen extends StatelessWidget {
   final BookingScreenArgs bookingScreenArgs;
-  const BookingScreen({Key? key, required this.bookingScreenArgs}) : super(key: key);
+  const BookingScreen({Key? key, required this.bookingScreenArgs})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(),
+    );
   }
 }
 
@@ -18,5 +21,5 @@ class BookingScreenArgs {
   BookingScreenArgs({
     required this.user_id,
     required this.roomData,
-  });
+  }); 
 }

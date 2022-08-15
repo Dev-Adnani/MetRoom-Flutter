@@ -3,6 +3,7 @@
 //     final bookingModel = bookingModelFromJson(jsonString);
 
 import 'dart:convert';
+
 import 'package:metroom/core/models/room.model.dart';
 
 List<BookingModel> bookingModelFromJson(String str) => List<BookingModel>.from(
@@ -13,28 +14,32 @@ String bookingModelToJson(List<BookingModel> data) =>
 
 class BookingModel {
   BookingModel({
-    required this.bookingsId,
+    required this.bookingRazorid,
     required this.bookingPrice,
-    required this.bookingDate,
+    required this.bookingStartDate,
+    required this.bookingEndDate,
     required this.rooms,
   });
 
-  int bookingsId;
+  String bookingRazorid;
   int bookingPrice;
-  String bookingDate;
+  String bookingStartDate;
+  String bookingEndDate;
   RoomModel rooms;
 
   factory BookingModel.fromJson(Map<String, dynamic> json) => BookingModel(
-        bookingsId: json["bookings_id"],
+        bookingRazorid: json["booking_razorid"],
         bookingPrice: json["booking_price"],
-        bookingDate: json["booking_date"],
+        bookingStartDate: json["booking_start_date"],
+        bookingEndDate: json["booking_end_date"],
         rooms: RoomModel.fromJson(json["rooms"]),
       );
 
   Map<String, dynamic> toJson() => {
-        "bookings_id": bookingsId,
+        "booking_razorid": bookingRazorid,
         "booking_price": bookingPrice,
-        "booking_date": bookingDate,
+        "booking_start_date": bookingStartDate,
+        "booking_end_date": bookingEndDate,
         "rooms": rooms.toJson(),
       };
 }

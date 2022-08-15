@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/presentation/screens/aboutScreen/about.screen.dart';
+import 'package:metroom/presentation/screens/allRoomsScreen/all.rooms.screen.dart';
 import 'package:metroom/presentation/screens/bookingScreen/booking.screen.dart';
 import 'package:metroom/presentation/screens/deciderScreen/decider.screen.dart';
 import 'package:metroom/presentation/screens/favouriteScreen/favourite.screen.dart';
@@ -33,6 +34,7 @@ class AppRouter {
   static const String profileRoute = "/profile";
   static const String searchRoute = "/search";
   static const String bookingRoute = "/bookingF";
+  static const String allRoomsRoute = "/allRooms";
 
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -142,6 +144,12 @@ class AppRouter {
                   as BookingScreenArgs,
             ),
             settings: settings,
+          );
+        }
+      case allRoomsRoute:
+        {
+          return MaterialPageRoute(
+            builder: (context) => AllRoomScreen(),
           );
         }
     }

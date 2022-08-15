@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/app/routes/app.routes.dart';
 import 'package:metroom/core/models/room.model.dart';
 import 'package:metroom/core/notifiers/room.notifier.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
+import 'package:metroom/presentation/screens/roomScreen/room.screen.dart';
 import 'package:metroom/presentation/widgets/no.data.dart';
 import 'package:metroom/presentation/screens/searchScreen/widgets/search.items.dart';
 import 'package:metroom/presentation/widgets/custom.styles.dart';
@@ -121,6 +123,14 @@ class _SearchScreenState extends State<SearchScreen> {
                           RoomModel roomModel = _snapshot[index];
                           return SearchItem(
                             roomModel: roomModel,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRouter.roomDetailRoute,
+                                arguments: RoomScreenArgs(
+                                  room_id: roomModel.roomId,
+                                ),
+                              );
+                            },
                           );
                         },
                       );

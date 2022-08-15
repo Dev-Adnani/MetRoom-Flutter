@@ -36,7 +36,6 @@ class EventsItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                placeholder: (context, url) => CircularProgressIndicator(),
                 errorWidget: (context, url, error) => Icon(Icons.error),
               ),
               Container(
