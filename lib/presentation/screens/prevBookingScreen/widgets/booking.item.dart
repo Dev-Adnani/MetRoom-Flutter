@@ -51,7 +51,7 @@ class BookingItem extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5.0),
                       child: CachedNetworkImage(
-                        imageUrl: bookingModel.rooms.roomPhotos[1],
+                        imageUrl: bookingModel.rooms!.roomPhotos[1],
                         imageBuilder: (context, imageProvider) => Container(
                           height: 80,
                           width: 70,
@@ -78,7 +78,7 @@ class BookingItem extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 5),
                           child: Text(
-                            'Name : ${bookingModel.rooms.roomName}',
+                            'Name : ${bookingModel.rooms!.roomName}',
                             maxLines: 1,
                             style: TextStyle(
                               color: themeFlag
@@ -93,7 +93,7 @@ class BookingItem extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 6, top: 2),
                           child: Text(
-                            'Address : ${bookingModel.rooms.roomAddress.toString()}',
+                            'Address : ${bookingModel.rooms!.roomAddress.toString()}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -121,7 +121,7 @@ class BookingItem extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 6, top: 2),
                           child: Text(
-                            'Price : ₹ ${bookingModel.rooms.roomPrice.toString()}',
+                            'Price : ₹ ${bookingModel.rooms!.roomPrice.toString()}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

@@ -29,4 +29,17 @@ class BookingNotifier extends ChangeNotifier {
       return true;
     }
   }
+
+  String? startDate;
+  String? endDate;
+
+  void startDateSet({required String createdAt}) {
+     startDate = createdAt;
+    notifyListeners();
+  }
+
+  void endDateSet({required String createdAt}) {
+     endDate = createdAt;
+    notifyListeners();
+  }
 }

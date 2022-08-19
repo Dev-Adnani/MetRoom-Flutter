@@ -18,14 +18,14 @@ class BookingModel {
     required this.bookingPrice,
     required this.bookingStartDate,
     required this.bookingEndDate,
-    required this.rooms,
+     this.rooms,
   });
 
   String bookingRazorid;
   int bookingPrice;
   String bookingStartDate;
   String bookingEndDate;
-  RoomModel rooms;
+  RoomModel? rooms;
 
   factory BookingModel.fromJson(Map<String, dynamic> json) => BookingModel(
         bookingRazorid: json["booking_razorid"],
@@ -40,6 +40,6 @@ class BookingModel {
         "booking_price": bookingPrice,
         "booking_start_date": bookingStartDate,
         "booking_end_date": bookingEndDate,
-        "rooms": rooms.toJson(),
+        "rooms": rooms?.toJson(),
       };
 }

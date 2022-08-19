@@ -40,6 +40,7 @@ class PaymentNotifier extends ChangeNotifier {
       return paymentStatus!;
     } catch (e) {
       payResponse = e.toString();
+      print(payResponse!);
       return false;
     }
   }

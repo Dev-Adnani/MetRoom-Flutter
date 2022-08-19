@@ -83,7 +83,7 @@ class PreviousBookingScreen extends StatelessWidget {
                                     Navigator.of(context).pushNamed(
                                       AppRouter.roomDetailRoute,
                                       arguments: RoomScreenArgs(
-                                        room_id: bookingModel.rooms.roomId,
+                                        room_id: bookingModel.rooms!.roomId,
                                       ),
                                     );
                                   },

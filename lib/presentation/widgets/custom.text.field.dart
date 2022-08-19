@@ -76,6 +76,7 @@ class CustomTextField {
         minLines: minLines,
         maxLines: maxLines,
         controller: textEditingController,
+        
         validator: validator,
         initialValue: initialValue,
         style: kBodyText.copyWith(
