@@ -6,6 +6,8 @@
  
 Looking for a weekend break with your lover, a month of solitary travel, or a week-long family vacation? Use the Metroom app to locate affordable hotels in the finest places. 
 
+Extensively Used Supabase For Authentication , Storage , Database , Functions.
+
 ## Tech Stack
 
 **Client:** Flutter
