@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/app/constants/app.coupons.dart';
 import 'package:metroom/core/models/booking.model.dart';
 import 'package:metroom/core/models/room.model.dart';
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
@@ -12,11 +13,24 @@ import 'package:metroom/presentation/widgets/custom.button.dart';
 import 'package:metroom/presentation/widgets/custom.snackbar.dart';
 import 'package:provider/provider.dart';
 
-class BookingScreen extends StatelessWidget {
+class BookingScreen extends StatefulWidget {
   final BookingScreenArgs bookingScreenArgs;
 
   const BookingScreen({Key? key, required this.bookingScreenArgs})
       : super(key: key);
+
+  @override
+  State<BookingScreen> createState() => _BookingScreenState();
+}
+
+class _BookingScreenState extends State<BookingScreen> {
+  bool check = false;
+
+  @override
+  void initState() {
+    check = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +39,7 @@ class BookingScreen extends StatelessWidget {
     var themeFlag = _themeNotifier.darkTheme;
     var userData = Provider.of<AuthenticationNotifer>(context, listen: true);
     var bookNotifier = Provider.of<BookingNotifier>(context, listen: true);
+    TextEditingController couponText = TextEditingController();
 
     return Scaffold(
       backgroundColor: themeFlag ? AppColors.mirage : AppColors.creamColor,
@@ -42,6 +57,7 @@ class BookingScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 20,
+            vertical: 30,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +113,7 @@ class BookingScreen extends StatelessWidget {
               Divider(
                   color: themeFlag ? AppColors.creamColor : AppColors.mirage),
               Text(
-                'Room Name : ${bookingScreenArgs.roomData.roomName}',
+                'Room Name : ${widget.bookingScreenArgs.roomData.roomName}',
                 style: TextStyle(
                   color: themeFlag ? AppColors.creamColor : AppColors.mirage,
                   fontSize: 16,
@@ -105,7 +121,7 @@ class BookingScreen extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               Text(
-                'Room Address : ${bookingScreenArgs.roomData.roomAddress}',
+                'Room Address : ${widget.bookingScreenArgs.roomData.roomAddress}',
                 style: TextStyle(
                   color: themeFlag ? AppColors.creamColor : AppColors.mirage,
                   fontSize: 16,
@@ -115,7 +131,7 @@ class BookingScreen extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                'Room Type : ${bookingScreenArgs.roomData.roomType}',
+                'Room Type : ${widget.bookingScreenArgs.roomData.roomType}',
                 style: TextStyle(
                   color: themeFlag ? AppColors.creamColor : AppColors.mirage,
                   fontSize: 16,
@@ -123,12 +139,22 @@ class BookingScreen extends StatelessWidget {
                 textAlign: TextAlign.left,
               ),
               Text(
-                'Room Price : ${bookingScreenArgs.roomData.roomPrice}',
+                'Room Price : ${widget.bookingScreenArgs.roomData.roomPrice}',
                 style: TextStyle(
                   color: themeFlag ? AppColors.creamColor : AppColors.mirage,
                   fontSize: 16,
                 ),
                 textAlign: TextAlign.left,
+              ),
+              Text(
+                'Discount Amount : ${check ? (widget.bookingScreenArgs.roomData.roomPrice * 5 ~/ 100) : 0}',
+                style: TextStyle(
+                  color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.left,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               Divider(
                 color: themeFlag ? AppColors.creamColor : AppColors.mirage,
@@ -206,6 +232,82 @@ class BookingScreen extends StatelessWidget {
                   )
                 ],
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      const Icon(Icons.card_giftcard),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 210),
+                          child: TextFormField(
+                            controller: couponText,
+                            style: TextStyle(
+                              color: themeFlag
+                                  ? AppColors.creamColor
+                                  : AppColors.mirage,
+                              fontSize: 16.0,
+                            ),
+                            decoration: InputDecoration(
+                              hintText: 'Enter Coupon Code',
+                              hintStyle: TextStyle(
+                                color: themeFlag
+                                    ? AppColors.creamColor
+                                    : AppColors.mirage,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  TextButton(
+                    child: const Text('Apply'),
+                    onPressed: () {
+                      if (couponText.text.isNotEmpty) {
+                        if (AppDiscount.couponCode.contains(couponText.text)) {
+                          if (check == false) {
+                            SnackUtil.showSnackBar(
+                              context: context,
+                              text: 'Ohh Yeah Coupon Applied',
+                              textColor: AppColors.creamColor,
+                              backgroundColor: Colors.red.shade200,
+                            );
+                            setState(() {
+                              check = true;
+                            });
+                          } else if (check == true) {
+                            SnackUtil.showSnackBar(
+                              context: context,
+                              text: 'Coupon Already Applied',
+                              textColor: AppColors.creamColor,
+                              backgroundColor: Colors.red.shade200,
+                            );
+                          }
+                        } else {
+                          SnackUtil.showSnackBar(
+                            context: context,
+                            text: 'Oops Wrong Coupon Code',
+                            textColor: AppColors.creamColor,
+                            backgroundColor: Colors.red.shade200,
+                          );
+                        }
+                      } else {
+                        SnackUtil.showSnackBar(
+                          context: context,
+                          text: "Ehh Atleast Enter A Coupon!",
+                          textColor: AppColors.creamColor,
+                          backgroundColor: Colors.red.shade200,
+                        );
+                      }
+                    },
+                  )
+                ],
+              ),
               SizedBox(
                 height: 40,
               ),
@@ -220,13 +322,19 @@ class BookingScreen extends StatelessWidget {
                     );
                     await PayStatus.checkMeOut(
                       context: context,
-                      amt: bookingScreenArgs.roomData.roomPrice.toInt(),
+                      amt: widget.bookingScreenArgs.roomData.roomPrice.toInt(),
                     ).whenComplete(
                       () async {
                         if (PayStatus.paymentStatus!) {
                           BookingModel bookingModel = BookingModel(
                             bookingRazorid: 'PayStatus.payResponse!',
-                            bookingPrice: bookingScreenArgs.roomData.roomPrice,
+                            bookingPrice: check
+                                ? widget.bookingScreenArgs.roomData.roomPrice -
+                                    (widget.bookingScreenArgs.roomData
+                                            .roomPrice *
+                                        5 ~/
+                                        100)
+                                : widget.bookingScreenArgs.roomData.roomPrice,
                             bookingStartDate: bookNotifier.startDate!,
                             bookingEndDate: bookNotifier.endDate!,
                           );
@@ -237,7 +345,7 @@ class BookingScreen extends StatelessWidget {
                               .confirmBooking(
                             bookingModel: bookingModel,
                             userId: userData.userId!,
-                            roomId: bookingScreenArgs.roomData.roomId,
+                            roomId: widget.bookingScreenArgs.roomData.roomId,
                           );
 
                           if (isSuccessFul) {

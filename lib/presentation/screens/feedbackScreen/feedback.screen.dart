@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:metroom/app/constants/app.colors.dart';
+import 'package:metroom/app/constants/app.coupons.dart';
 import 'package:metroom/core/models/feedback.model.dart';
 import 'package:metroom/core/notifiers/authentication.notifier.dart';
 import 'package:metroom/core/notifiers/feedback.notifier.dart';
@@ -11,6 +14,7 @@ import 'package:metroom/presentation/widgets/custom.snackbar.dart';
 import 'package:metroom/presentation/widgets/custom.text.field.dart';
 import 'package:metroom/core/notifiers/theme.notifier.dart';
 import 'package:provider/provider.dart';
+import 'package:scratcher/scratcher.dart';
 
 // ignore: must_be_immutable
 class FeedbackScreen extends StatelessWidget {
@@ -121,8 +125,11 @@ class FeedbackScreen extends StatelessWidget {
                 ),
                 CustomButton.customBtnLogin(
                   buttonName: 'Send Feedback',
-                  onTap: () async {
-                    _submitFeedback(context: context);
+                  onTap: () {
+                    if (_formKey.currentState!.validate()) {
+                      _submitFeedback(context: context);
+                      couponCode(context: context, themeFlag: themeFlag);
+                    }
                   },
                   bgColor: themeFlag ? AppColors.creamColor : AppColors.mirage,
                   textColor:
@@ -157,7 +164,7 @@ class FeedbackScreen extends StatelessWidget {
     if (valid) {
       SnackUtil.showSnackBar(
         context: context,
-        text: "Submitted Successfully",
+        text: "Thanks For Submitting Feedback,We Have A Gift For You ",
         textColor: AppColors.creamColor,
         backgroundColor: Colors.green,
       );
@@ -171,4 +178,68 @@ class FeedbackScreen extends StatelessWidget {
       );
     }
   }
+}
+
+Future couponCode(
+    {required BuildContext context, required bool themeFlag}) async {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      final _random = Random();
+      double opacity = 0.0;
+      return Theme(
+        data: Theme.of(context).copyWith(
+          dialogBackgroundColor:
+              themeFlag ? AppColors.mirage : AppColors.creamColor,
+        ),
+        child: AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          title: Align(
+            alignment: Alignment.center,
+            child: Text(
+              'You\'ve won a Coupon Code',
+              style: TextStyle(
+                color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+              ),
+            ),
+          ),
+          content: StatefulBuilder(
+            builder: (context, StateSetter setState) {
+              return Scratcher(
+                color: themeFlag ? AppColors.creamColor : AppColors.mirage,
+                accuracy: ScratchAccuracy.low,
+                brushSize: 50,
+                threshold: 25,
+                onThreshold: () {
+                  setState(() {
+                    opacity = 1;
+                  });
+                },
+                child: AnimatedOpacity(
+                  opacity: opacity,
+                  duration: const Duration(milliseconds: 300),
+                  child: Container(
+                    height: 300,
+                    width: 300,
+                    alignment: Alignment.center,
+                    child: Text(
+                      AppDiscount.couponListDisplay[_random.nextInt(
+                        AppDiscount.couponListDisplay.length,
+                      )],
+                      style: TextStyle(
+                        color:
+                            themeFlag ? AppColors.creamColor : AppColors.mirage,
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    },
+  );
 }
