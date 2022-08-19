@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:metroom/presentation/screens/aboutScreen/about.screen.dart';
 import 'package:metroom/presentation/screens/allRoomsScreen/all.rooms.screen.dart';
 import 'package:metroom/presentation/screens/bookingScreen/booking.screen.dart';
-import 'package:metroom/presentation/screens/deciderScreen/decider.screen.dart';
 import 'package:metroom/presentation/screens/favouriteScreen/favourite.screen.dart';
 import 'package:metroom/presentation/screens/feedbackScreen/feedback.screen.dart';
 import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/loginScreen/login.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/navigation.screen.dart';
+import 'package:metroom/presentation/screens/noNetworkScreen/no.network.screen.dart';
 import 'package:metroom/presentation/screens/onBoardingScreen/on.boarding.screen.dart';
 import 'package:metroom/presentation/screens/prevBookingScreen/prev.booking.screen.dart';
 import 'package:metroom/presentation/screens/profileScreen/profile.screen.dart';
@@ -20,7 +20,6 @@ import 'package:metroom/presentation/screens/splashScreen/splash.screen.dart';
 class AppRouter {
   static const String onboardingRoute = "/onboard";
   static const String splashRoute = "/splash";
-  static const String deciderRoute = "/decider";
   static const String loginRoute = "/login";
   static const String signupRoute = "/signup";
   static const String navRoute = "/nav";
@@ -35,6 +34,7 @@ class AppRouter {
   static const String searchRoute = "/search";
   static const String bookingRoute = "/bookingF";
   static const String allRoomsRoute = "/allRooms";
+  static const String noNetWorkRoute = "/noNet";
 
   static Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -50,12 +50,7 @@ class AppRouter {
             builder: (_) => OnBoardingScreen(),
           );
         }
-      case deciderRoute:
-        {
-          return MaterialPageRoute(
-            builder: (_) => DeciderScreen(),
-          );
-        }
+    
       case loginRoute:
         {
           return MaterialPageRoute(
@@ -150,6 +145,12 @@ class AppRouter {
         {
           return MaterialPageRoute(
             builder: (context) => AllRoomScreen(),
+          );
+        }
+        case noNetWorkRoute:
+        {
+          return MaterialPageRoute(
+            builder: (context) => NoNetworkScreen(),
           );
         }
     }

@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
           valueType: ValueType.IntValue,
           key: AppKeys.userData,
           actionIfNull: () {
-            Navigator.of(context).pushReplacementNamed(AppRouter.deciderRoute);
+            Navigator.of(context).pushReplacementNamed(AppRouter.loginRoute);
           },
           actionIfNotNull: () async {
             var user_id = await CacheService.getInt(key: AppKeys.userData);

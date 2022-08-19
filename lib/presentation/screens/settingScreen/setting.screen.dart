@@ -177,7 +177,7 @@ class SettingScreen extends StatelessWidget {
       ),
       onPressed: () {
         CacheService.deleteKey(key: AppKeys.userData).whenComplete(() {
-          Navigator.of(context).pushReplacementNamed(AppRouter.deciderRoute);
+          Navigator.of(context).pushReplacementNamed(AppRouter.loginRoute);
         });
       },
     );
