@@ -11,6 +11,7 @@ dependencies:
   cached_network_image: ^3.2.1
   card_swiper: ^2.0.4
   concentric_transition: ^1.0.3
+  connectivity_plus: ^2.3.6+1
   cupertino_icons: ^1.0.2
   dropdown_button2: ^1.7.2
   flutter:
