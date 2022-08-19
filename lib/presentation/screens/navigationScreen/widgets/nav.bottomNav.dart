@@ -44,13 +44,6 @@ Widget BottomNav(
             selectedColor: Colors.pink,
           ),
           SalomonBottomBarItem(
-            icon: Icon(Icons.pin_drop_sharp),
-            title: Text("Near By"),
-            unselectedColor:
-                themeFlag ? AppColors.creamColor : AppColors.mirage,
-            selectedColor: Colors.blueAccent,
-          ),
-          SalomonBottomBarItem(
             icon: Icon(Icons.settings),
             title: Text("Setting"),
             unselectedColor:

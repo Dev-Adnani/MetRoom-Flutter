@@ -18,7 +18,7 @@ Extensively Used Supabase For Authentication , Storage , Database , Functions.
 
 ## Demo
 
-Youtube Video : 
+Youtube Video : https://youtu.be/Z9XNxNOD6qU
 
 ## Features
 

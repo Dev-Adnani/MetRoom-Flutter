@@ -5,7 +5,6 @@ import 'package:metroom/presentation/screens/homeScreen/home.screen.dart';
 import 'package:metroom/presentation/screens/navigationScreen/widgets/nav.bottomNav.dart';
 import 'package:metroom/presentation/screens/searchScreen/search.screen.dart';
 import 'package:metroom/presentation/screens/settingScreen/setting.screen.dart';
-import 'package:metroom/presentation/screens/signupScreen/signup.screen.dart';
 import 'package:provider/provider.dart';
 
 class NavigationScreen extends StatefulWidget {
@@ -36,7 +35,6 @@ class _NavigationScreenState extends State<NavigationScreen> {
           HomeScreen(),
           SearchScreen(),
           FavouriteScreen(),
-          SignUpScreen(),
           SettingScreen()
         ],
       ),
