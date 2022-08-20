@@ -44,6 +44,19 @@ Youtube Video : https://youtu.be/Z9XNxNOD6qU
   - For x Days
 - Coupon System
 
+## Environment Variables
+
+To run this project, you will need to add the following file in app - constant folder - app.credentials.dart
+
+`supabaseApiUrl`
+
+`supabaseApiKey`
+
+`razorKey`
+
+ You Can Get Supabase credentials From Supabase Website.
+
+
 ## Libraries
 
 - Main Library Used in App 
@@ -81,13 +94,11 @@ Screen 4              |  Screen 5 | Screen 6
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_4-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_5-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_6-removebg-preview.png?raw=true)
 
-Screen 7              |  Screen 8 | Screen 9                           
-:-------------------------:|:-------------------------:|:-------------------------:
-![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_7-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_8-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_9-removebg-preview.png?raw=true)
+Screen 7              |  Screen 8 | Screen 9            |               Screen 10            |  Screen 11                 
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_7-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_8-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_9-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_10-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_11-removebg-preview.png?raw=true)
 
-Screen 10            |  Screen 11                            
-:-------------------------:|:-------------------------:
-![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_10-removebg-preview.png?raw=true)|![](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/screen_11-removebg-preview.png?raw=true)
+           
 
 
 </details>
