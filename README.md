@@ -54,8 +54,11 @@ To run this project, you will need to add the following file in app - constant f
 
 `razorKey`
 
- You Can Get Supabase credentials From Supabase Website.
+You Can Get Supabase credentials From Supabase Website.
 
+You Can Get Razorpay Key For Razorpay Website.
+
+For Database Schema , please reach out to me at dev.adnani26@gmail.com.
 
 ## Libraries
 
