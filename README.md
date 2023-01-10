@@ -58,7 +58,13 @@ You Can Get Supabase credentials From Supabase Website.
 
 You Can Get Razorpay Key For Razorpay Website.
 
-For Database Schema , please reach out to me at dev.adnani26@gmail.com.
+## Database Schema
+
+<p align="center">
+  <img src="https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/screenshots/db_schema.png" />
+</p>
+
+[**SQL : DDL COMMANDS**](https://github.com/Dev-Adnani/MetRoom-Flutter/blob/main/db_create.sql)
 
 ## Libraries
 
